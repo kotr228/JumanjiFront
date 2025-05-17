@@ -505,6 +505,7 @@
     padding: 0 16px;
   }
   .styles_sectionListItem__IzEVy {
+    color: #458505;
     display: flex;
     align-items: center;
     padding: 19px 20px 19px 24px;
@@ -520,6 +521,9 @@
     -webkit-hyphens: auto;
     hyphens: auto;
     white-space: normal;
+  }
+  .styles_sectionListItem__IzEVy:hover{
+    color: #66ca02;
   }
   .styles_sectionListItem__IzEVy .styles_sectionListItemIcon__xNJNZ {
     margin-left: auto;
