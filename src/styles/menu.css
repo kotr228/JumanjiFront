@@ -514,7 +514,7 @@
     background-color: var(--theme-colors-100);
     border-radius: 8px;
     margin-bottom: 8px;
-    border: 1px solid var(--theme-colors-300);
+    border: 1px solid #458505 !important;
     box-shadow: var(--box-shadow);
     word-wrap: anywhere;
     -webkit-hyphens: auto;
