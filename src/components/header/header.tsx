@@ -46,9 +46,9 @@ const MenuButton: React.FC<MenuButtonProps> = ({onClick}) => {
     className="styles_button___Dvql styles_sizeSmall__NCTix styles_appearanceStroke__LKd1h styles_button__01Xtp"
   >
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-      <rect x="4" y="6" width="16" height="2" fill="#213547" />
-      <rect x="4" y="11" width="16" height="2" fill="#213547" />
-      <rect x="4" y="16" width="16" height="2" fill="#213547" />
+      <rect x="4" y="6" width="16" height="2" fill="#458505" />
+      <rect x="4" y="11" width="16" height="2" fill="#458505" />
+      <rect x="4" y="16" width="16" height="2" fill="#458505" />
     </svg>
   </button>
   );
