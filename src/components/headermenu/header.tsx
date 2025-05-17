@@ -66,7 +66,7 @@ const Slider: FC = () => (
     <div className="style_Swiper__VqPC7 style_MainTemplateSwiper__UHS32 style_MainTemplateSwiperBorder__3gPrr">
       <div className="swiper swiper-initialized swiper-horizontal swiper-pointer-events">
         <div className="swiper-wrapper" style={{ transform: 'translate3d(0px, 0px, 0px)' } as CSSProperties}>
-          <div className="swiper-slide swiper-slide-active" style={{ width: '410px' }}>
+          <div className="swiper-slide swiper-slide-active" style={{ width: '100%' }}>
             <picture>
               <source
                 srcSet="https://cdn-media.choiceqr.com/prod-eat-jumanji-alex/XXaqNZK-mLNbsJR-xkPiLJd.webp"
