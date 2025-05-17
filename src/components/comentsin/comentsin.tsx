@@ -120,7 +120,7 @@ const CommentsIn: React.FC = () => {
                         />
                     </div>
 
-                    <div className="form-check form-switch mb-3">
+                    {/*<div className="form-check form-switch mb-3">
                         <input
                             className="form-check-input"
                             type="checkbox"
@@ -131,7 +131,7 @@ const CommentsIn: React.FC = () => {
                         <label className="form-check-label" htmlFor="contactSwitch">
                             Будь ласка, залиште свої контакти
                         </label>
-                    </div>
+                    </div>*/}
 
                     <button
                         type="button"
