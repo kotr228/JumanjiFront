@@ -26,7 +26,7 @@ const Logo: FC = () => (
 );
 
 const IconButton: FC<IconButtonProps> = ({ href, ariaLabel, title, children }) => (
-  <a href="/signup">
+  <a href={href}>
     <button
       aria-label={ariaLabel}
       title={title}

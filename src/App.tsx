@@ -12,6 +12,8 @@ import CookiePolicy from "./pages/cookiepolicy/cookiepolicy";
 import AboutCompany from "./pages/aboutcompany/aboutcompany";
 import SignUp from "./components/SignUp/SignUp";
 import LogIn from "./components/LogIn/LogIn";
+import Favorites from "./pages/favorites/favorites";
+import Popular from "./pages/popular/popular";
 import { AppProps } from "./state/state";
 import  UserLogger  from "./context/UserLogger";
 
@@ -39,6 +41,8 @@ const App:React.FC<AppProps> = ({state, dispatch} ) => {
           <Route path="/aboutcompany" element={<AboutCompany />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/login" element={<LogIn />} />
+          <Route path="/favorites" element={<Favorites dispatch = {dispatch} state={state}/>} />
+          <Route path="/popular" element={<Popular dispatch = {dispatch} state={state}/>} />
         </Routes>
      </AuthProvider>
     </div>

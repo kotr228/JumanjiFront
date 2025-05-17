@@ -27,6 +27,7 @@ export type MenuFoodItem = {
     Description: string;
     Weight: number;
     img: string;
+    favorite_count?: number;
 };
 
 // Загальний інтерфейс стану меню

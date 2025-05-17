@@ -6,7 +6,7 @@ const Footer = () => {
         <div className="styles_FooterWrapper__Ji6dI">
             <div className="styles_container__ImQx_">
                 <div className="styles_FooterContent__x9t8y">
-                    <div className="styles_FooterBlocks__rhvNv" style={{marginBottom: '16px'}}>
+                    <div className="styles_FooterBlocks__rhvNv" style={{ marginBottom: '16px' }}>
                         <div className="styles_FooterBlockWrap__Aiz1e">
                             <div className="styles_block__gG8qD">
                                 <div className="styles_blockIcon__2LCBY">
@@ -26,7 +26,7 @@ const Footer = () => {
                                 <div className="styles_blockBodyWrapper__s_gPh">
                                     <div className="styles_blockBody__YZI2b">
                                         <div className="styles_blockLabel__s6vwi">Про місце:</div>
-                                        <div data-projection-id="13" style={{height: 'auto'}}>
+                                        <div data-projection-id="13" style={{ height: 'auto' }}>
                                             <div className="styles_blockValue__WQ1cC">кафе, бар, коктейль, комплексні обіди, смачна їжа, настільні ігри</div>
                                         </div>
                                     </div>
@@ -115,7 +115,7 @@ const Footer = () => {
                                         <path d="M6 9L12 16L18 9H6Z" fill="currentColor">
                                         </path>
                                     </svg>
-                                        <div style={{position: "absolute", bottom: '100%', paddingBottom: '4px', right: '0px', zIndex: '2'}}>
+                                        <div style={{ position: "absolute", bottom: '100%', paddingBottom: '4px', right: '0px', zIndex: '2' }}>
                                         </div>
                                     </div>
                                 </div>
@@ -142,8 +142,19 @@ const Footer = () => {
                     </div>
                     <div className="styles_FooterBlockMap__pO0HF">
                         <p className="styles_FooterLabel__Fsj4r">На карті</p>
-                        <div className="styles_mapWrapper__9C_qh"><div className="Loader_root__V9Nmy styles_mapLoader__SZyVC" style={{width: "48px", height: "48px", padding: "5px"}}>
-                            <div className="Loader_icon__Hiyr9"></div></div><iframe title="Google Maps" name="Google Maps" className="styles_FooterMap__AZx0V styles_isVisible__F9j_u" referrerPolicy="no-referrer-when-downgrade" allowFullScreen src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBlNJjVAiVL3NDU8_UlkX0EbIc8aCeZqqE&amp;q=Sobornyi%20Ave%2C%20100%D0%90%2C%20Oleksandriia%2C%20Kirovohrads'ka%20oblast%2C%20Ukraine%2C%2028000&amp;zoom=15"></iframe>
+                        <div className="styles_mapWrapper__9C_qh"><div className="Loader_root__V9Nmy styles_mapLoader__SZyVC" style={{ width: "48px", height: "48px", padding: "5px" }}>
+                            <div className="Loader_icon__Hiyr9"></div></div><iframe
+                                title="Google Maps"
+                                className="styles_FooterMap__AZx0V styles_isVisible__F9j_u"
+                                src="https://www.google.com/maps?q=Sobornyi+Ave,+100A,+Oleksandriia,+Ukraine&output=embed"
+                                width="100%"
+                                height="300"
+                                style={{ border: 0 }}
+                                allowFullScreen
+                                loading="lazy"
+                                referrerPolicy="no-referrer-when-downgrade"
+                            />
+
                         </div><a target="_blank" href="https://maps.google.com/?q=Sobornyi Ave, 100А, Oleksandriia, Kirovohrads'ka oblast, Ukraine, 28000" rel="noreferrer">
                             <button className="styles_button___Dvql styles_appearanceStroke__LKd1h styles_fullWidth__x3ayC styles_FooterMapButton__0wAgp"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M6 3C4.35499 3 3 4.35499 3 6C3 7.64501 4.35499 9 6 9C7.29316 9 8.39514 8.15733 8.8125 7H17C18.1167 7 19 7.88333 19 9C19 10.1167 18.1167 11 17 11H7C4.80267 11 3 12.8027 3 15V16H3.20312C3.65948 17.7064 5.15641 19 7 19H15.1875C15.6049 20.1573 16.7068 21 18 21C19.645 21 21 19.645 21 18C21 16.355 19.645 15 18 15C16.7068 15 15.6049 15.8427 15.1875 17H7C5.88333 17 5 16.1167 5 15C5 13.8833 5.88333 13 7 13H17C18.8436 13 20.3405 11.7064 20.7969 10H21V9C21 6.80267 19.1973 5 17 5H8.8125C8.39514 3.84267 7.29316 3 6 3ZM6 5C6.56413 5 7 5.43587 7 6C7 6.56413 6.56413 7 6 7C5.43587 7 5 6.56413 5 6C5 5.43587 5.43587 5 6 5ZM18 17C18.5641 17 19 17.4359 19 18C19 18.5641 18.5641 19 18 19C17.4359 19 17 18.5641 17 18C17 17.4359 17.4359 17 18 17Z" fill="currentColor">

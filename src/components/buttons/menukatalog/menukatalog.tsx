@@ -4,6 +4,8 @@ import React, { useEffect, useState } from 'react';
 import { AppProps } from "../../../state/state";
 import { MenuCategoryItem, MenuFoodItem } from '../../../state/state';
 import { addToFavorites, removeFromFavorites, fetchFavorites } from '../../../utils/favorites';
+import { addToFavoritesdinks, removeFromFavoritesdinks, fetchFavoritesdinks } from '../../../utils/favoritesdrinks';
+
 
 interface MenuButtonsProps {
   userId: number;
@@ -17,6 +19,7 @@ const MenuButtons: React.FC<AppProps & MenuButtonsProps> = ({ userId, dispatch, 
   const navigate = useNavigate();
 
   const [favoriteDishes, setFavoriteDishes] = useState<number[]>([]);
+  const [favoriteDrinks, setFavoriteDrinks] = useState<number[]>([]);
 
   useEffect(() => {
     if (sectionID) {
@@ -28,10 +31,19 @@ const MenuButtons: React.FC<AppProps & MenuButtonsProps> = ({ userId, dispatch, 
   }, [sectionID]);
 
   useEffect(() => {
-  fetchFavorites(userId)
+    fetchFavorites(userId)
+      .then((favorites: any[]) => {
+        const favoriteIds = favorites.map(dish => dish.id);
+        setFavoriteDishes(favoriteIds);
+      })
+      .catch(console.error);
+  }, [userId]);
+
+  useEffect(() => {
+  fetchFavoritesdinks(userId)
     .then((favorites: any[]) => {
-      const favoriteIds = favorites.map(dish => dish.id);
-      setFavoriteDishes(favoriteIds);
+      const favoriteIds = favorites.map(drink => drink.id);
+      setFavoriteDrinks(favoriteIds);
     })
     .catch(console.error);
 }, [userId]);
@@ -68,7 +80,7 @@ const MenuButtons: React.FC<AppProps & MenuButtonsProps> = ({ userId, dispatch, 
               <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"></path>
             </g>
           </svg>
-          <div>Обрані: <span>0</span></div>
+          <div>Обрані: <span>{favoriteDishes.length + favoriteDrinks.length}</span></div>
         </a>
       </div>
 
@@ -105,12 +117,28 @@ const MenuButtons: React.FC<AppProps & MenuButtonsProps> = ({ userId, dispatch, 
                         <img src={dish.img} alt={dish.Name} loading="lazy" className="styles_previewImage__HiwA8" />
                       </picture>
                       <div className="styles_actions__HRsIJ" style={{ display: 'flex', gap: '10px', flexDirection: 'column' }}>
-                        <button onClick={() => toggleFavorite(dish.id)} className="styles_button___Dvql styles_sizeSmall__NCTix styles_appearancePrimaryStroke__2HcO0">
-                          {favoriteDishes.includes(dish.id) ? 'В обраних' : 'Додати в обрані'}
+                        <button
+                          onClick={() => toggleFavorite(dish.id)}
+                          className="styles_button___Dvql styles_sizeSmall__NCTix styles_appearancePrimaryStroke__2HcO0"
+                          style={{ display: 'flex', alignItems: 'center', gap: '6px' }}
+                        >
+                          {favoriteDishes.includes(dish.id) ? (
+                            <>
+                              <svg width="16" height="16" viewBox="0 0 24 24" fill="#eb7353" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                              </svg>
+                              В обраних
+                            </>
+                          ) : (
+                            <>
+                              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#eb7353" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M20.84 4.61c-1.54-1.36-4-1.36-5.54 0L12 7.88l-3.3-3.27c-1.54-1.36-4-1.36-5.54 0-1.65 1.46-1.5 4.18.32 5.71L12 21.35l8.52-10.99c1.83-1.54 1.97-4.25.32-5.75z" />
+                              </svg>
+                              Додати в обрані
+                            </>
+                          )}
                         </button>
-                        <button className="styles_button___Dvql styles_sizeSmall__NCTix styles_appearancePrimaryStroke__2HcO0">
-                          Додати в кошик
-                        </button>
+
                       </div>
                     </div>
 

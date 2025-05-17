@@ -3,32 +3,23 @@ import './menu.css';
 import React, { useEffect, useState } from 'react';
 import { AppProps } from "../../../state/state";
 import { MenuCategoryItem, MenuFoodItem } from '../../../state/state';
-import { addToFavoritesdinks, removeFromFavoritesdinks, fetchFavoritesdinks } from '../../../utils/favoritesdrinks';
+import { addToFavorites, removeFromFavorites, fetchFavorites } from '../../../utils/favorites';
 
 interface MenuButtonsProps {
   userId: number;
   sectionID: string | undefined; // Додали проп sectionID
 }
 
-const MenuButtons: React.FC<AppProps & MenuButtonsProps> = ({ userId, dispatch, sectionID, state }) => {
+const MenuButtons: React.FC<AppProps & MenuButtonsProps> = ({ userId, dispatch, state }) => {
 
-  const menuCategories = state._BarMenu._BarMenuKategory;
-  const menuFood = state._BarMenu._BarMenuFood;
+  const menuCategories = state._Menu._MenuKategory;
+  const menuFood = state._Menu._MenuFood;
   const navigate = useNavigate();
 
   const [favoriteDishes, setFavoriteDishes] = useState<number[]>([]);
 
   useEffect(() => {
-    if (sectionID) {
-      const sectionElement = document.getElementById(sectionID);
-      if (sectionElement) {
-        sectionElement.scrollIntoView({ behavior: 'smooth' });
-      }
-    }
-  }, [sectionID]);
-
-  useEffect(() => {
-    fetchFavoritesdinks(userId)
+    fetchFavorites(userId)
       .then((favorites: any[]) => {
         const favoriteIds = favorites.map(dish => dish.id);
         setFavoriteDishes(favoriteIds);
@@ -36,13 +27,14 @@ const MenuButtons: React.FC<AppProps & MenuButtonsProps> = ({ userId, dispatch, 
       .catch(console.error);
   }, [userId]);
 
+
   const toggleFavorite = async (dishId: number) => {
     try {
       if (favoriteDishes.includes(dishId)) {
-        await removeFromFavoritesdinks(userId, dishId);
+        await removeFromFavorites(userId, dishId);
         setFavoriteDishes(prev => prev.filter(id => id !== dishId));
       } else {
-        await addToFavoritesdinks(userId, dishId);
+        await addToFavorites(userId, dishId);
         setFavoriteDishes(prev => [...prev, dishId]);
       }
     } catch (error) {
@@ -51,27 +43,20 @@ const MenuButtons: React.FC<AppProps & MenuButtonsProps> = ({ userId, dispatch, 
     }
   };
 
-  const handleClick = (id: string) => {
-    navigate(`/menu/${id}`);
-  };
 
   return (
     <div>
-      <div className="DefaultView_sectionHeader__U3ztd">
-        <div className="DefaultView_sectionTitle__5TaBo">Барна карта</div>
-        <div className="DefaultView_sectionDescription__EA20t"></div>
-      </div>
-
       {menuCategories.map((category) => {
-        const relatedDishes = menuFood.filter((dish) => dish.idM === category.id);
+        const relatedDishes = menuFood
+          .filter((dish) => dish.idM === category.id)
+          .filter(dish => favoriteDishes.includes(dish.id));
 
         if (relatedDishes.length === 0) return null;
 
         return (
+
           <div key={category.id} className="DefaultView_categoryWrapper__diWo2 category-observer-js" id={category.idName}>
-            <div className="DefaultView_category____Qzq">
-              <div className="DefaultView_categoryName__81kTs">{category.label}</div>
-            </div>
+            <div className="DefaultView_category____Qzq"></div>
             <div className="DefaultView_categoryMenu__Mi7A2">
               {relatedDishes.map((dish) => (
                 <div key={`${category.id}-${dish.Name}`} className="section-list-item styles_menuItem__rvgPH">
@@ -114,6 +99,7 @@ const MenuButtons: React.FC<AppProps & MenuButtonsProps> = ({ userId, dispatch, 
 
                       </div>
                     </div>
+
                   </div>
                 </div>
               ))}

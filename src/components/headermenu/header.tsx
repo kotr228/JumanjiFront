@@ -1,4 +1,4 @@
-import React, { FC, CSSProperties } from 'react';
+import React, { FC, CSSProperties, useState } from 'react';
 import { useNavigate, Link } from "react-router-dom";
 import Sidebar from '../sidebar/sidebar';
 import './header.css';
@@ -8,6 +8,10 @@ type IconButtonProps = {
   ariaLabel: string;
   title: string;
   children: React.ReactNode;
+};
+
+type MenuButtonProps = {
+  onClick: () => void;
 };
 
 const Logo = () => {
@@ -30,7 +34,7 @@ const Logo = () => {
   );
 };
 
-const IconButton: FC<IconButtonProps> = ({ href, ariaLabel, title, children }) => (
+const IconButton: React.FC<IconButtonProps> = ({ href, ariaLabel, title, children }) => (
   <a href={href}>
     <button
       aria-label={ariaLabel}
@@ -42,10 +46,11 @@ const IconButton: FC<IconButtonProps> = ({ href, ariaLabel, title, children }) =
   </a>
 );
 
-const MenuButton: FC = () => (
+const MenuButton: React.FC<MenuButtonProps> = ({onClick}) => (
   <button
     aria-label="Меню"
     title="Меню"
+    onClick={onClick}
     className="styles_button___Dvql styles_sizeSmall__NCTix styles_appearanceStroke__LKd1h styles_button__01Xtp"
   >
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -81,25 +86,23 @@ const Slider: FC = () => (
 );
 
 const Header: FC = () => {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  
+  const handleToggleSidebar = () => {setIsSidebarOpen(!isSidebarOpen);};
   return (
     <div className="styles_mainMobileHeader__kGS_R">
       <div className="styles_top__pq4DQ">
         <Logo />
         <div className="styles_rightContent__UOM18">
-          <IconButton href="/search" ariaLabel="Пошук" title="Пошук">
-            {/* SVG іконка пошуку */}
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-              <path
-                d="M9 2C5.14585 2 2 5.14585 2 9C2 12.8541 5.14585 16 9 16C10.748 16 12.345 15.348 13.5742 14.2812L14 14.707V16L20 22L22 20L16 14H14.707L14.2812 13.5742C15.348 12.345 16 10.748 16 9C16 5.14585 12.8541 2 9 2ZM9 4C11.7733 4 14 6.22673 14 9C14 11.7733 11.7733 14 9 14C6.22673 14 4 11.7733 4 9C4 6.22673 6.22673 4 9 4Z"
-                fill="currentColor"
-              />
-            </svg>
-          </IconButton>
+          
 
-          <MenuButton />
+          
         </div>
       </div>
+      {isSidebarOpen && <Sidebar onClose={() => setIsSidebarOpen(false)} />}
+        
     </div>
+    
   );
 };
 
