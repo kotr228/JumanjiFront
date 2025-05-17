@@ -51,8 +51,7 @@ const MenuButton: React.FC<MenuButtonProps> = ({onClick}) => (
     aria-label="Меню"
     title="Меню"
     onClick={onClick}
-    className="styles_button___Dvql styles_sizeSmall__NCTix styles_appearanceStroke__LKd1h styles_button__01Xtp"
-  >
+    className="styles_button___Dvql styles_sizeSmall__NCTix styles_appearanceStroke__LKd1h styles_button__01Xtp">
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
       <rect x="4" y="6" width="16" height="2" fill="#213547" />
       <rect x="4" y="11" width="16" height="2" fill="#213547" />
