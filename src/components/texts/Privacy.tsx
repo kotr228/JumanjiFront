@@ -1,4 +1,4 @@
-import { AppProps } from "../../../state/state";
+import { AppProps } from "../../state/state";
 import React from 'react';
 import './styles.css'
 
