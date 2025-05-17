@@ -1,4 +1,4 @@
-import './links.css'
+import './../../styles/links.css'
 
 const Links = () => (
     <div className="styles_sectionList__NVH3E">

@@ -1,4 +1,4 @@
-import './menu.css'
+import './../../../styles/menu.css'
 import { useNavigate } from 'react-router-dom';
 import { AppProps } from "../../../state/state";
 import { MenuCategoryItem } from '../../../state/state';

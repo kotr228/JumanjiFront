@@ -1,4 +1,4 @@
-import './firehose.css'
+import './../../styles/firehose.css'
 
 const Firehose = () => {
     return (

@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import './sidebar.css'; // стиль можна адаптувати під себе
+import './../../styles/sidebar.css'; // стиль можна адаптувати під себе
 
 type SidebarProps = {
     onClose: () => void;

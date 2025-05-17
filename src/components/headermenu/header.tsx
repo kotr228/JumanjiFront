@@ -1,7 +1,7 @@
 import React, { FC, CSSProperties, useState } from 'react';
 import { useNavigate, Link } from "react-router-dom";
 import Sidebar from '../sidebar/sidebar';
-import './header.css';
+import './../../styles/header.css';
 
 type IconButtonProps = {
   href: string;

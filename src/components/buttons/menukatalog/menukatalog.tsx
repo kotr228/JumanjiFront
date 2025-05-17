@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from 'react-router-dom';
-import './menu.css';
+import './../../../styles/menu.css';
 import React, { useEffect, useState } from 'react';
 import { AppProps } from "../../../state/state";
 import { MenuCategoryItem, MenuFoodItem } from '../../../state/state';

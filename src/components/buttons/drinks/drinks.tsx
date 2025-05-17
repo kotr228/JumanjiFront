@@ -1,5 +1,5 @@
 
-import './menu.css'
+import './../../../styles/menu.css'
 
 const DrinksButton = () => (
     <div className="styles_sectionList__NVH3E">
