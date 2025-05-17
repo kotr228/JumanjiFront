@@ -1,3 +1,33 @@
+.style_EditorTemplateAboutContent__QRU_U{
+  text-align: justify;
+}
+.style_EditorTemplateAboutContent__QRU_U h2, h3{
+  color: #458505;
+}
+.style_EditorTemplateAboutContent__QRU_U p{
+  text-indent: 2em;
+  color: #000;
+}
+.style_EditorTemplateAboutContent__QRU_U li::marker{
+  color: #458505;
+}
+.style_EditorTemplateAboutContent__QRU_U strong{
+  color: #458505;
+}
+.style_EditorTemplateAboutContent__QRU_U table{
+  border: 1px solid #458505;
+  border-collapse: collapse;
+  width: 100%;
+}
+.style_EditorTemplateAboutContent__QRU_U a{
+  color: #458505;
+}
+.style_EditorTemplateAboutContent__QRU_U th, td{
+  border: 1px solid #458505;
+  padding: 10px;
+  text-align: left;
+  color: #000;
+}
 .Loader_root__V9Nmy {
     display: flex;
     align-items: center;
