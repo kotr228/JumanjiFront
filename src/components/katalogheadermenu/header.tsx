@@ -62,17 +62,6 @@ const Slider: FC = () => (
       <div className="swiper swiper-initialized swiper-horizontal swiper-pointer-events">
         <div className="swiper-wrapper" style={{ transform: 'translate3d(0px, 0px, 0px)' } as CSSProperties}>
           <div className="swiper-slide swiper-slide-active" style={{ width: '410px' }}>
-            <picture>
-              <source
-                srcSet="https://cdn-media.choiceqr.com/prod-eat-jumanji-alex/XXaqNZK-mLNbsJR-xkPiLJd.webp"
-                type="image/webp"
-              />
-              <img
-                src="https://cdn-media.choiceqr.com/prod-eat-jumanji-alex/thumbnail_XXaqNZK-mLNbsJR-xkPiLJd_b-s-p.jpeg"
-                alt="slider image"
-                loading="eager"
-              />
-            </picture>
           </div>
         </div>
       </div>

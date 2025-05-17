@@ -3,19 +3,22 @@ import './menu.css';
 import React, { useEffect, useState } from 'react';
 import { AppProps } from "../../../state/state";
 import { MenuCategoryItem, MenuFoodItem } from '../../../state/state';
+import { addToFavorites, removeFromFavorites, fetchFavorites } from '../../../utils/favorites';
 
 interface MenuButtonsProps {
+  userId: number;
   sectionID: string | undefined; // Додали проп sectionID
 }
 
-const MenuButtons: React.FC<AppProps & MenuButtonsProps> = ({ dispatch, sectionID, state }) => {
+const MenuButtons: React.FC<AppProps & MenuButtonsProps> = ({ userId, dispatch, sectionID, state }) => {
 
-    const menuCategories = state._Menu._MenuKategory;
-    const menuFood = state._Menu._MenuFood;
+  const menuCategories = state._Menu._MenuKategory;
+  const menuFood = state._Menu._MenuFood;
+  const navigate = useNavigate();
 
+  const [favoriteDishes, setFavoriteDishes] = useState<number[]>([]);
 
   useEffect(() => {
-    // Якщо секція з URL існує, шукаємо її та прокручуємо до неї
     if (sectionID) {
       const sectionElement = document.getElementById(sectionID);
       if (sectionElement) {
@@ -24,11 +27,31 @@ const MenuButtons: React.FC<AppProps & MenuButtonsProps> = ({ dispatch, sectionI
     }
   }, [sectionID]);
 
-  const navigate = useNavigate();
+  useEffect(() => {
+  fetchFavorites(userId)
+    .then((favorites: any[]) => {
+      const favoriteIds = favorites.map(dish => dish.id);
+      setFavoriteDishes(favoriteIds);
+    })
+    .catch(console.error);
+}, [userId]);
 
-  const handleClick = (id: string) => {
-    navigate(`/menu/${id}`);
+
+  const toggleFavorite = async (dishId: number) => {
+    try {
+      if (favoriteDishes.includes(dishId)) {
+        await removeFromFavorites(userId, dishId);
+        setFavoriteDishes(prev => prev.filter(id => id !== dishId));
+      } else {
+        await addToFavorites(userId, dishId);
+        setFavoriteDishes(prev => [...prev, dishId]);
+      }
+    } catch (error) {
+      console.error(error);
+      alert('Сталася помилка при оновленні улюблених');
+    }
   };
+
 
   return (
     <div>
@@ -81,12 +104,16 @@ const MenuButtons: React.FC<AppProps & MenuButtonsProps> = ({ dispatch, sectionI
                       <picture>
                         <img src={dish.img} alt={dish.Name} loading="lazy" className="styles_previewImage__HiwA8" />
                       </picture>
-                      <div className="styles_actions__HRsIJ">
+                      <div className="styles_actions__HRsIJ" style={{ display: 'flex', gap: '10px', flexDirection: 'column' }}>
+                        <button onClick={() => toggleFavorite(dish.id)} className="styles_button___Dvql styles_sizeSmall__NCTix styles_appearancePrimaryStroke__2HcO0">
+                          {favoriteDishes.includes(dish.id) ? 'В обраних' : 'Додати в обрані'}
+                        </button>
                         <button className="styles_button___Dvql styles_sizeSmall__NCTix styles_appearancePrimaryStroke__2HcO0">
-                          Додати
+                          Додати в кошик
                         </button>
                       </div>
                     </div>
+
                   </div>
                 </div>
               ))}
