@@ -392,7 +392,11 @@
   .styles_button___Dvql.styles_appearanceStroke__LKd1h {
     border-width: 1px;
     border-style: solid;
-    border-color: var(--theme-colors-300);
+    border-color: #458505;
+    color:#458505
+  }
+  .styles_button___Dvql.styles_appearanceStroke__LKd1h:hover{
+    color: #66ca02;
   }
   .styles_button___Dvql.styles_appearanceDangerStroke__5Vsvl {
     border-width: 1px;
