@@ -1,6 +1,6 @@
 
 import React from 'react';
-import './favoritesnone.css';
+import './../../styles/favoritesnone.css';
 
 const FavoritesNone: React.FC = () => {
     return (

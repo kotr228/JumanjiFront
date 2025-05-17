@@ -1,4 +1,4 @@
-import './menu.css'
+import './../../../styles/menu.css'
 
 const MenuButton = () => (
     <div className="styles_sectionList__NVH3E">

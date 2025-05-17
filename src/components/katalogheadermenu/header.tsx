@@ -1,6 +1,6 @@
 import React, { FC, CSSProperties } from 'react';
 import { useNavigate, Link } from "react-router-dom";
-import './header.css';
+import './../../styles/header.css';
 
 type IconButtonProps = {
   href: string;

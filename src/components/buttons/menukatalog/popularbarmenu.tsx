@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import './menu.css';
+import './../../../styles/menu.css';
 import { MenuFoodItem } from '../../../state/state';
 import { addToFavoritesdinks, removeFromFavoritesdinks, fetchFavoritesdinks } from '../../../utils/favoritesdrinks';
 import { fetchPopularDishes } from '../../../utils/fetchPopularDrinks';
