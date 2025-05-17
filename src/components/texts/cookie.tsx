@@ -1,6 +1,6 @@
 import { AppProps } from "../../state/state";
 import React from 'react';
-import './styles.css'
+import './../../styles/styles.css'
 
 const Cookie: React.FC = () => {
     return (
