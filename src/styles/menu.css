@@ -224,7 +224,7 @@
     font-weight: 700;
     font-size: 16px;
     line-height: 24px;
-    color: var(--theme-colors-500);
+    color: #458505 !important;
     margin-bottom: 8px;
     margin-top: 0;
   }
@@ -323,7 +323,7 @@
     font-weight: 400;
     font-size: 14px;
     line-height: 24px;
-    color: var(--theme-colors-500);
+    color: #458505 !important;
     display: flex;
     align-items: center;
   }
@@ -386,6 +386,7 @@
   }
   .styles_blockBody__YZI2b {
     padding-right: 16px;
+    color:#458505;
   }
   .styles_blockIcon__2LCBY {
     width: 48px;
@@ -409,6 +410,7 @@
     display: block;
   }
   .styles_schedule__lyvjd {
+    color:#458505;
     margin-top: 21px;
     font-size: 15px;
     font-weight: 700;
