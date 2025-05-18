@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import { sendFeedback, FeedbackPayload } from '../../utils/FeedbackPayload';
+import './../../styles/reviews_&_comments.css';
 
 const CommentsIn: React.FC = () => {
 
@@ -29,7 +30,7 @@ const CommentsIn: React.FC = () => {
                         key={star}
                         type="button"
                         className="btn btn-link p-0"
-                        style={{ color: filled ? '#ffc107' : '#e4e5e9' }}
+                        style={{ color: filled ? '#ffc107' : 'orange' }}
                         onClick={() => setRating(star)}
                         onMouseEnter={() => setHovered({ type, index: star })}
                         onMouseLeave={() => setHovered(null)}
@@ -133,14 +134,17 @@ const CommentsIn: React.FC = () => {
                         </label>
                     </div>*/}
 
-                    <button
-                        type="button"
-                        className="btn btn-primary w-100"
-                        disabled={foodRating === 0 || serviceRating === 0 || loading}
-                        onClick={handleSubmit}
-                    >
-                        {loading ? 'Надсилання...' : 'Надіслати відгук'}
-                    </button>
+                    <div className="sendFeedback">
+                        <button
+                            type="button"
+                            className="btn btn-primary w-100"
+                            disabled={foodRating === 0 || serviceRating === 0 || loading}
+                            onClick={handleSubmit}
+                        >
+                            {loading ? 'Надсилання...' : 'Надіслати відгук'}
+                        </button>
+                    </div>
+                    
                 </div>
             </div>
         </div>

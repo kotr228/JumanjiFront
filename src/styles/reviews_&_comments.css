@@ -1,0 +1,39 @@
+.card.shadow-sm{
+    color: black;
+    border: 1px solid #458505;
+    border-radius: 12px;
+    background-color: white;
+}
+.d-flex.justify-content-between.mb-3{
+    background: linear-gradient(to bottom, #458505, #c0f58b);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.mb-3{
+    color:black;
+    background-color: white;
+}
+.form-label{
+    color:black;
+    background-color: white;
+}
+.mb-3 textarea{
+    border: 1px solid #458505;
+}
+.sendFeedback{
+    color: black;
+    background-color: #458505;
+    border: 1px solid #458505;
+    border-radius: 12px;
+}
+.sendFeedback button{
+    background-color: #458505 !important;
+    border: 1px solid #458505 !important;
+    border-radius: 12px;
+    color: white !important;
+    transition: background-color 0.3s ease, border 0.3s ease, color 0.3s ease;
+}
+.sendFeedback:hover{
+    border: 3px solid #458505;
+    background-color:#64c404;
+}
