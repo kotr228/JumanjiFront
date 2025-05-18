@@ -1,4 +1,5 @@
 import React from 'react';
+import './../../styles/gallery.css';
 
 type GalleryImage = {
   webp: string;
@@ -24,18 +25,17 @@ const imageList: GalleryImage[] = [
 
 const Gallery: React.FC = () => (
   <div className="styles_MainTemplatePhotoGallery__NpGMJ">
-    <div className="styles_MainTemplatePhotoGallery__NpGMJ">
-      <div className="styles_photoGalleryTitle__8__s8">Наші фотографії</div>
-      <div className="styles_photoGalleryList__iT_m3">
-        {imageList.map((img, index) => (
-          <div className="styles_photoGalleryListItem__1Nm1z" key={index}>
-            <picture>
-              <source srcSet={img.webp} type="image/webp" />
-              <img src={img.jpeg} alt="gallery" loading="lazy" />
-            </picture>
-          </div>
-        ))}
-      </div>
+    <div className="styles_photoGalleryTitle__8__s8">Наші фотографії</div>
+    <div className="styles_photoGalleryList__iT_m3">
+      {imageList.map((img, index) => (
+        <div className="styles_photoGalleryListItem__1Nm1z" key={index}>
+          <picture>
+            <source srcSet={img.webp} type="image/webp" />
+            <img src={img.jpeg} alt="gallery" loading="lazy" />
+          </picture>
+        </div>
+      ))}
+      <button className="gallery_addButton" onClick={() => alert("Додасть фото")}>+</button>
     </div>
   </div>
 );
