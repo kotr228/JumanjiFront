@@ -33,27 +33,37 @@ const AddDrink: React.FC<AddDishProps> = ({ idM }) => {
   };
 
   // Обробка вибору файлу
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files.length > 0) {
-      const file = e.target.files[0];
-
-      // Збережемо ім'я файлу у formData.img (це і буде шлях на бек)
-      setFormData(prev => ({
-        ...prev,
-        img: file.name,
-      }));
-
-      // Зробимо прев'ю, конвертувавши файл у Base64 (optional)
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setPreviewSrc(reader.result as string);
-      };
-      reader.readAsDataURL(file);
-
-      // !!! Якщо треба відправити файл на бек - це окремий запит, тут немає.
-      // Ти можеш це зробити окремо або вручну помістити файли у public/img.
-    }
-  };
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+      if (e.target.files && e.target.files.length > 0) {
+        const file = e.target.files[0];
+  
+        // Створення форми для надсилання зображення
+        const formDataFile = new FormData();
+        formDataFile.append('image', file);
+  
+        try {
+          const res = await fetch('http://localhost:3000/api/img/upload', {
+            method: 'POST',
+            body: formDataFile,
+          });
+  
+          const data = await res.json();
+          setFormData(prev => ({
+            ...prev,
+            img: data.path, // шлях до зображення
+          }));
+  
+          // Створення прев'ю
+          const reader = new FileReader();
+          reader.onloadend = () => {
+            setPreviewSrc(reader.result as string);
+          };
+          reader.readAsDataURL(file);
+        } catch (error) {
+          console.error('Помилка при завантаженні зображення:', error);
+        }
+      }
+    };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
