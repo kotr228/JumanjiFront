@@ -10,7 +10,7 @@ interface DishData {
   Price: number;
   Description: string;
   Weight: number;
-  img: string; // тут зберігаємо ім'я файлу, наприклад "pizza.jpg"
+  img: string; 
 }
 
 const AddDrink: React.FC<AddDishProps> = ({ idM }) => {
@@ -22,7 +22,7 @@ const AddDrink: React.FC<AddDishProps> = ({ idM }) => {
     img: '',
   });
 
-  const [previewSrc, setPreviewSrc] = useState<string>(''); // Для прев'ю картинки (Base64)
+  const [previewSrc, setPreviewSrc] = useState<string>(''); 
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -32,12 +32,11 @@ const AddDrink: React.FC<AddDishProps> = ({ idM }) => {
     }));
   };
 
-  // Обробка вибору файлу
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
       if (e.target.files && e.target.files.length > 0) {
         const file = e.target.files[0];
   
-        // Створення форми для надсилання зображення
+        
         const formDataFile = new FormData();
         formDataFile.append('image', file);
   
@@ -50,10 +49,10 @@ const AddDrink: React.FC<AddDishProps> = ({ idM }) => {
           const data = await res.json();
           setFormData(prev => ({
             ...prev,
-            img: data.path, // шлях до зображення
+            img: data.path, 
           }));
   
-          // Створення прев'ю
+          
           const reader = new FileReader();
           reader.onloadend = () => {
             setPreviewSrc(reader.result as string);
