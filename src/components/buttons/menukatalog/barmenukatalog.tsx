@@ -66,7 +66,7 @@ const MenuButtons: React.FC<AppProps & MenuButtonsProps> = ({ userId, dispatch, 
       {menuCategories.map((category) => {
         const relatedDishes = menuFood.filter((dish) => dish.idM === category.id);
 
-        if (relatedDishes.length === 0) return null;
+        
 
         return (
           <div key={category.id} className="DefaultView_categoryWrapper__diWo2 category-observer-js" id={category.idName}>

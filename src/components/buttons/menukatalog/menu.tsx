@@ -3,6 +3,7 @@ import './../../../styles/menu.css';
 import React, { useEffect, useState } from 'react';
 import { AppProps } from "../../../state/state";
 import { MenuCategoryItem } from '../../../state/state';
+import AddCategory from './AddCategory';
 
 
 const MenuButtons: React.FC<AppProps> = ({ state, dispatch }) => {
@@ -51,6 +52,7 @@ const MenuButtons: React.FC<AppProps> = ({ state, dispatch }) => {
                     </div>
                 </div>
             </div>
+            {/*<AddCategory/>*/}
         </div>
     );
 };
