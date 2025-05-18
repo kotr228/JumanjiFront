@@ -162,6 +162,30 @@ const Footer = () => {
                             </svg>Отримати розташування</button>
                         </a>
                     </div>
+                    <div className="styles_FooterBlockSocials__87lmY">
+                        <div className="styles_FooterLabel__Fsj4r">Замовити програмне забезпечення у CatHouse</div>
+                        <div className="styles_FooterLabel__Fsj4r">Ми надаємо послуги у створенні: сайтів-візиток, WEB-застосунків, підтримка забезпечення, Телеграм-ботів</div>
+                        <div className="styles_socialList__tcRlP">
+                            <a title="instagram" target="_blank" href="https://www.instagram.com/trockij_k?igsh=MWdrZW0xbjJrcDA2ZA==" rel="noreferrer" className="styles_FooterSocials__81qRl">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 3C5.243 3 3 5.243 3 8V16C3 18.757 5.243 21 8 21H16C18.757 21 21 18.757 21 16V8C21 5.243 18.757 3 16 3H8ZM8 5H16C17.654 5 19 6.346 19 8V16C19 17.654 17.654 19 16 19H8C6.346 19 5 17.654 5 16V8C5 6.346 6.346 5 8 5ZM17 6C16.7348 6 16.4804 6.10536 16.2929 6.29289C16.1054 6.48043 16 6.73478 16 7C16 7.26522 16.1054 7.51957 16.2929 7.70711C16.4804 7.89464 16.7348 8 17 8C17.2652 8 17.5196 7.89464 17.7071 7.70711C17.8946 7.51957 18 7.26522 18 7C18 6.73478 17.8946 6.48043 17.7071 6.29289C17.5196 6.10536 17.2652 6 17 6ZM12 7C9.243 7 7 9.243 7 12C7 14.757 9.243 17 12 17C14.757 17 17 14.757 17 12C17 9.243 14.757 7 12 7ZM12 9C13.654 9 15 10.346 15 12C15 13.654 13.654 15 12 15C10.346 15 9 13.654 9 12C9 10.346 10.346 9 12 9Z" fill="currentColor"></path>
+                                </svg>
+                                <div>Instagram</div>
+                            </a>
+                            <a title="google" target="_blank" href="mailto:cathouse7565@gmail.com" rel="noreferrer" className="styles_FooterSocials__81qRl">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                    <path d="M21.915 10.752L21.697 9H17.304L20.278 6.026L18.73 4.615C16.88 2.929 14.49 2 12 2C6.486 2 2 6.486 2 12C2 17.514 6.486 22 12 22C17.514 22 22 17.514 22 12C22 11.61 21.973 11.214 21.915 10.752ZM12 20C7.582 20 4 16.418 4 12C4 7.582 7.582 4 12 4C14.076 4 15.96 4.797 17.382 6.093L15.248 8.227C14.372 7.473 13.247 7 12 7C9.239 7 7 9.239 7 12C7 14.761 9.239 17 12 17C14.049 17 15.806 15.764 16.578 14H13V11H19.931C19.972 11.328 20 11.661 20 12C20 16.418 16.418 20 12 20ZM11 9.171V11V14V14.829C9.836 14.416 9 13.304 9 12C9 10.696 9.836 9.584 11 9.171Z" fill="currentColor">
+                                    </path>
+                                </svg>
+                                <div>Gmail</div>
+                            </a>
+                            <a title="fb" target="_blank" href="https://t.me/M4A2E3_76_w" rel="noreferrer" className="styles_FooterSocials__81qRl">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M9.036 16.927L9.354 20.52C9.81 20.52 10.012 20.315 10.244 20.088L12.122 18.298L16.644 21.655C17.476 22.124 18.06 21.888 18.272 20.936L21.951 4.215L21.952 4.214C22.206 3.06 21.499 2.55 20.689 2.86L2.354 9.934C1.231 10.376 1.238 11.016 2.15 11.296L6.864 12.726L17.757 6.07C18.258 5.77 18.715 5.937 18.336 6.261L9.036 16.927Z" fill="currentColor"></path>
+                                </svg>
+                                <div>Telegram</div>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

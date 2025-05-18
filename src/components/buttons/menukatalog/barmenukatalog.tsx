@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { AppProps } from "../../../state/state";
 import { MenuCategoryItem, MenuFoodItem } from '../../../state/state';
 import { addToFavoritesdinks, removeFromFavoritesdinks, fetchFavoritesdinks } from '../../../utils/favoritesdrinks';
+import AddDrink from './DrinksAdd';
 
 interface MenuButtonsProps {
   userId: number;
@@ -117,6 +118,9 @@ const MenuButtons: React.FC<AppProps & MenuButtonsProps> = ({ userId, dispatch, 
                   </div>
                 </div>
               ))}
+              <div className="styles_menu-item-right__fZWJD">
+                <AddDrink idM={category.id} />
+              </div>
             </div>
           </div>
         );
