@@ -5,6 +5,7 @@ import { AppProps } from "../../../state/state";
 import { MenuCategoryItem, MenuFoodItem } from '../../../state/state';
 import { addToFavorites, removeFromFavorites, fetchFavorites } from '../../../utils/favorites';
 import { addToFavoritesdinks, removeFromFavoritesdinks, fetchFavoritesdinks } from '../../../utils/favoritesdrinks';
+import AddDish from './MenuAdd';
 
 
 interface MenuButtonsProps {
@@ -40,13 +41,13 @@ const MenuButtons: React.FC<AppProps & MenuButtonsProps> = ({ userId, dispatch, 
   }, [userId]);
 
   useEffect(() => {
-  fetchFavoritesdinks(userId)
-    .then((favorites: any[]) => {
-      const favoriteIds = favorites.map(drink => drink.id);
-      setFavoriteDrinks(favoriteIds);
-    })
-    .catch(console.error);
-}, [userId]);
+    fetchFavoritesdinks(userId)
+      .then((favorites: any[]) => {
+        const favoriteIds = favorites.map(drink => drink.id);
+        setFavoriteDrinks(favoriteIds);
+      })
+      .catch(console.error);
+  }, [userId]);
 
 
   const toggleFavorite = async (dishId: number) => {
@@ -145,6 +146,9 @@ const MenuButtons: React.FC<AppProps & MenuButtonsProps> = ({ userId, dispatch, 
                   </div>
                 </div>
               ))}
+              <div className="styles_menu-item-right__fZWJD">
+                <AddDish idM={category.id} />
+              </div>
             </div>
           </div>
         );
