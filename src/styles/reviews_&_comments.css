@@ -5,9 +5,7 @@
     background-color: white;
 }
 .d-flex.justify-content-between.mb-3{
-    background: linear-gradient(to bottom, #458505, #c0f58b);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+   color: #458505;
 }
 .mb-3{
     color:black;
