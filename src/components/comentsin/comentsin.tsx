@@ -147,7 +147,41 @@ const CommentsIn: React.FC = () => {
                     
                 </div>
             </div>
+            <div className="card shadow-sm">
+                <div className="card-body">
+                    <div className="d-flex justify-content-between mb-3">
+                        <div>
+                            <h5 className="card-title">Нік кристувача який залишив відгук</h5>
+                        </div>
+                    </div>
+
+                    <div className="mb-4">
+                        <div className="mb-3">
+                            <label className="form-label">Страви</label>
+                            {renderStars(foodRating, setFoodRating, 'food')}
+                        </div>
+
+                        <div>
+                            <label className="form-label">Сервіс</label>
+                            {renderStars(serviceRating, setServiceRating, 'service')}
+                        </div>
+                    </div>
+
+                    <div className="sendFeedback">
+                        <button
+                            type="button"
+                            className="btn btn-primary w-100"
+                            disabled={foodRating === 0 || serviceRating === 0 || loading}
+                            onClick={handleSubmit}
+                        >
+                            {loading ? 'Редагування...' : 'Редагувати'}
+                        </button>
+                    </div>
+                    
+                </div>
+            </div>
         </div>
+        
     );
 };
 
