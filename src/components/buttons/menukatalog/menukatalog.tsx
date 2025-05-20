@@ -6,7 +6,7 @@ import { MenuCategoryItem, MenuFoodItem } from '../../../state/state';
 import { addToFavorites, removeFromFavorites, fetchFavorites } from '../../../utils/favorites';
 import { addToFavoritesdinks, removeFromFavoritesdinks, fetchFavoritesdinks } from '../../../utils/favoritesdrinks';
 import AddDish from './MenuAdd';
-
+import { useAuth } from '../../../context/AuthContext';
 
 interface MenuButtonsProps {
   userId: number;
@@ -21,6 +21,9 @@ const MenuButtons: React.FC<AppProps & MenuButtonsProps> = ({ userId, dispatch, 
 
   const [favoriteDishes, setFavoriteDishes] = useState<number[]>([]);
   const [favoriteDrinks, setFavoriteDrinks] = useState<number[]>([]);
+
+  const { state: authState } = useAuth();
+  const userRole = authState.user?.role;
 
   useEffect(() => {
     if (sectionID) {
@@ -93,7 +96,7 @@ const MenuButtons: React.FC<AppProps & MenuButtonsProps> = ({ userId, dispatch, 
       {menuCategories.map((category) => {
         const relatedDishes = menuFood.filter((dish) => dish.idM === category.id);
 
-        
+
 
         return (
           <div key={category.id} className="DefaultView_categoryWrapper__diWo2 category-observer-js" id={category.idName}>
@@ -114,9 +117,12 @@ const MenuButtons: React.FC<AppProps & MenuButtonsProps> = ({ userId, dispatch, 
                       </div>
                     </div>
                     <div className="styles_menu-item-right__fZWJD">
-                      <picture>
-                        <img src={dish.img} alt={dish.Name} loading="lazy" className="styles_previewImage__HiwA8" />
-                      </picture>
+                      {dish.img?.trim() && (
+                        <picture>
+                          <img src={dish.img} alt='' loading="lazy" className="styles_previewImage__HiwA8" />
+                        </picture>
+                      )}
+
                       <div className="styles_actions__HRsIJ" style={{ display: 'flex', gap: '10px', flexDirection: 'column' }}>
                         <button
                           onClick={() => toggleFavorite(dish.id)}
@@ -146,9 +152,11 @@ const MenuButtons: React.FC<AppProps & MenuButtonsProps> = ({ userId, dispatch, 
                   </div>
                 </div>
               ))}
+              {userRole === 'admin' && (
               <div className="styles_menu-item-right__fZWJD">
                 <AddDish idM={category.id} />
               </div>
+              )}
             </div>
           </div>
         );

@@ -5,6 +5,7 @@ import { AppProps } from "../../../state/state";
 import { MenuCategoryItem, MenuFoodItem } from '../../../state/state';
 import { addToFavoritesdinks, removeFromFavoritesdinks, fetchFavoritesdinks } from '../../../utils/favoritesdrinks';
 import AddDrink from './DrinksAdd';
+import { useAuth } from '../../../context/AuthContext';
 
 interface MenuButtonsProps {
   userId: number;
@@ -18,6 +19,9 @@ const MenuButtons: React.FC<AppProps & MenuButtonsProps> = ({ userId, dispatch, 
   const navigate = useNavigate();
 
   const [favoriteDishes, setFavoriteDishes] = useState<number[]>([]);
+
+  const { state: authState } = useAuth();
+  const userRole = authState.user?.role;
 
   useEffect(() => {
     if (sectionID) {
@@ -87,9 +91,11 @@ const MenuButtons: React.FC<AppProps & MenuButtonsProps> = ({ userId, dispatch, 
                       </div>
                     </div>
                     <div className="styles_menu-item-right__fZWJD">
+                    {dish.img?.trim() && (
                       <picture>
                         <img src={dish.img} alt={dish.Name} loading="lazy" className="styles_previewImage__HiwA8" />
                       </picture>
+                    )}
                       <div className="styles_actions__HRsIJ" style={{ display: 'flex', gap: '10px', flexDirection: 'column' }}>
                         <button
                           onClick={() => toggleFavorite(dish.id)}
@@ -118,9 +124,11 @@ const MenuButtons: React.FC<AppProps & MenuButtonsProps> = ({ userId, dispatch, 
                   </div>
                 </div>
               ))}
+              {userRole === 'admin' && (
               <div className="styles_menu-item-right__fZWJD">
                 <AddDrink idM={category.id} />
               </div>
+              )}
             </div>
           </div>
         );
