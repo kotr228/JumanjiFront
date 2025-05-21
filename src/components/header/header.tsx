@@ -1,6 +1,8 @@
 import React, { FC, CSSProperties, useState } from 'react';
 import Sidebar from '../sidebar/sidebar';
 import './../../styles/header.css';
+import img from '../../img/thumbnail_LfliZkJ-DCkvIRQ-ZwfeMWG_B-r-K.png';
+import webp from '../../img/XXaqNZK-mLNbsJR-xkPiLJd.webp';
 
 type IconButtonProps = {
   href: string;
@@ -19,7 +21,7 @@ const Logo: FC = () => (
       className="styles_logo__r8w5z"
       style={{
         backgroundImage:
-          'url("https://cdn-media.choiceqr.com/prod-eat-jumanji-alex/logo/thumbnail_LfliZkJ-DCkvIRQ-ZwfeMWG_B-r-K.png")',
+          `url(${img})`,
       } as CSSProperties}
     />
   </a>
@@ -64,11 +66,11 @@ const Slider: React.FC = () => {
           <div className="swiper-slide swiper-slide-active" style={{ width: '100%' }}>
             <picture>
               <source
-                srcSet="https://cdn-media.choiceqr.com/prod-eat-jumanji-alex/XXaqNZK-mLNbsJR-xkPiLJd.webp"
+                srcSet={webp}
                 type="image/webp"
               />
               <img
-                src="https://cdn-media.choiceqr.com/prod-eat-jumanji-alex/thumbnail_XXaqNZK-mLNbsJR-xkPiLJd_b-s-p.jpeg"
+                src={img}
                 alt="slider image"
                 loading="eager"
               />

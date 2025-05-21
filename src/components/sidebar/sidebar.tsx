@@ -1,11 +1,18 @@
 import React, { FC } from 'react';
 import './../../styles/sidebar.css'; // стиль можна адаптувати під себе
+import { useAuth } from '../../context/AuthContext';
 
 type SidebarProps = {
     onClose: () => void;
 };
 
 const Sidebar: FC<SidebarProps> = ({ onClose }) => {
+
+    const { state: authState } = useAuth();
+    const userID = authState.user?.id;
+    const userName = authState.user?.name;
+    const userRole = authState.user?.role;
+
     return (
 
         <div className="styles_sideBarMenu__EQSTn">
@@ -14,25 +21,50 @@ const Sidebar: FC<SidebarProps> = ({ onClose }) => {
             <div className="styles_menu__iIAhW" data-projection-id="5" style={{ transform: 'translateX(0%) translateZ(0px)' }}>
                 <div className="styles_sideBarMenuContent__zKNDC">
                     <ul className="styles_padded__fV_PM" data-projection-id="6" style={{ opacity: 1, position: 'relative', transform: 'none' }}>
-                        <div className="styles_authBlock__23mDB"><a href="https://clients.choiceqr.com/auth/login/me"><button className="styles_button___Dvql styles_sizeLarge__YGfzR styles_appearanceStroke__LKd1h styles_withShadow__qhvq4 styles_fillContent__OccwK styles_fullWidth__x3ayC styles_personalAccountButton__K_crG">
-                            <div className="styles_inner__td4kS">
-                                <div className="styles_iconHolder__lj_wy">
-                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M12 2C6.477 2 2 6.477 2 12C2 17.523 6.477 22 12 22C17.523 22 22 17.523 22 12C22 6.477 17.523 2 12 2ZM12 4C16.418 4 20 7.582 20 12C20 13.5973 19.5254 15.0811 18.7188 16.3301L17.9492 15.7344C16.3972 14.5374 13.537 14 12 14C10.463 14 7.60178 14.5374 6.05078 15.7344L5.28125 16.332C4.47404 15.0828 4 13.5979 4 12C4 7.582 7.582 4 12 4ZM12 5.75C10.208 5.75 8.75 7.208 8.75 9C8.75 10.792 10.208 12.25 12 12.25C13.792 12.25 15.25 10.792 15.25 9C15.25 7.208 13.792 5.75 12 5.75ZM12 7.75C12.689 7.75 13.25 8.311 13.25 9C13.25 9.689 12.689 10.25 12 10.25C11.311 10.25 10.75 9.689 10.75 9C10.75 8.311 11.311 7.75 12 7.75ZM12 16C15.1007 16 16.7681 17.1685 17.5488 17.7539C16.11 19.1418 14.1569 20 12 20C9.84315 20 7.89002 19.1418 6.45117 17.7539C7.2319 17.1685 8.89929 16 12 16ZM6.05469 17.3398C6.17566 17.4731 6.29727 17.6059 6.42578 17.7305C6.29711 17.6053 6.17473 17.4734 6.05469 17.3398ZM17.9121 17.375C17.8024 17.4955 17.6929 17.6168 17.5762 17.7305C17.6926 17.6175 17.8015 17.495 17.9121 17.375Z" fill="currentColor">
-                                        </path>
-                                    </svg>
-                                </div>Авторизуйтесь
-                                <div className="styles_rightIcon__d4zzs">
-                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M9 18L15 12L9 6" stroke="currentColor" strokeWidth="2">
-                                        </path>
-                                    </svg>
+                        {userID == null && (
+                            <div className="styles_authBlock__23mDB"><a href="/login"><button className="styles_button___Dvql styles_sizeLarge__YGfzR styles_appearanceStroke__LKd1h styles_withShadow__qhvq4 styles_fillContent__OccwK styles_fullWidth__x3ayC styles_personalAccountButton__K_crG">
+                                <div className="styles_inner__td4kS">
+                                    <div className="styles_iconHolder__lj_wy">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M12 2C6.477 2 2 6.477 2 12C2 17.523 6.477 22 12 22C17.523 22 22 17.523 22 12C22 6.477 17.523 2 12 2ZM12 4C16.418 4 20 7.582 20 12C20 13.5973 19.5254 15.0811 18.7188 16.3301L17.9492 15.7344C16.3972 14.5374 13.537 14 12 14C10.463 14 7.60178 14.5374 6.05078 15.7344L5.28125 16.332C4.47404 15.0828 4 13.5979 4 12C4 7.582 7.582 4 12 4ZM12 5.75C10.208 5.75 8.75 7.208 8.75 9C8.75 10.792 10.208 12.25 12 12.25C13.792 12.25 15.25 10.792 15.25 9C15.25 7.208 13.792 5.75 12 5.75ZM12 7.75C12.689 7.75 13.25 8.311 13.25 9C13.25 9.689 12.689 10.25 12 10.25C11.311 10.25 10.75 9.689 10.75 9C10.75 8.311 11.311 7.75 12 7.75ZM12 16C15.1007 16 16.7681 17.1685 17.5488 17.7539C16.11 19.1418 14.1569 20 12 20C9.84315 20 7.89002 19.1418 6.45117 17.7539C7.2319 17.1685 8.89929 16 12 16ZM6.05469 17.3398C6.17566 17.4731 6.29727 17.6059 6.42578 17.7305C6.29711 17.6053 6.17473 17.4734 6.05469 17.3398ZM17.9121 17.375C17.8024 17.4955 17.6929 17.6168 17.5762 17.7305C17.6926 17.6175 17.8015 17.495 17.9121 17.375Z" fill="currentColor">
+                                            </path>
+                                        </svg>
+                                    </div>Авторизуйтесь
+                                    <div className="styles_rightIcon__d4zzs">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M9 18L15 12L9 6" stroke="currentColor" strokeWidth="2">
+                                            </path>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </button></a>
+                                <div className="styles_personalAccountLogin__TaYTs"><b>Авторизуйтесь</b> щоб спростити процес замовлення та користуватися додатковими функціями.
                                 </div>
                             </div>
-                        </button></a>
-                            <div className="styles_personalAccountLogin__TaYTs"><b>Авторизуйтесь</b> щоб спростити процес замовлення та користуватися додатковими функціями.
+                        )}
+                        {userID != null && (
+                            <div className="styles_authBlock__23mDB"><a href="/login"><button className="styles_button___Dvql styles_sizeLarge__YGfzR styles_appearanceStroke__LKd1h styles_withShadow__qhvq4 styles_fillContent__OccwK styles_fullWidth__x3ayC styles_personalAccountButton__K_crG">
+                                <div className="styles_inner__td4kS">
+                                    <div className="styles_iconHolder__lj_wy">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M12 2C6.477 2 2 6.477 2 12C2 17.523 6.477 22 12 22C17.523 22 22 17.523 22 12C22 6.477 17.523 2 12 2ZM12 4C16.418 4 20 7.582 20 12C20 13.5973 19.5254 15.0811 18.7188 16.3301L17.9492 15.7344C16.3972 14.5374 13.537 14 12 14C10.463 14 7.60178 14.5374 6.05078 15.7344L5.28125 16.332C4.47404 15.0828 4 13.5979 4 12C4 7.582 7.582 4 12 4ZM12 5.75C10.208 5.75 8.75 7.208 8.75 9C8.75 10.792 10.208 12.25 12 12.25C13.792 12.25 15.25 10.792 15.25 9C15.25 7.208 13.792 5.75 12 5.75ZM12 7.75C12.689 7.75 13.25 8.311 13.25 9C13.25 9.689 12.689 10.25 12 10.25C11.311 10.25 10.75 9.689 10.75 9C10.75 8.311 11.311 7.75 12 7.75ZM12 16C15.1007 16 16.7681 17.1685 17.5488 17.7539C16.11 19.1418 14.1569 20 12 20C9.84315 20 7.89002 19.1418 6.45117 17.7539C7.2319 17.1685 8.89929 16 12 16ZM6.05469 17.3398C6.17566 17.4731 6.29727 17.6059 6.42578 17.7305C6.29711 17.6053 6.17473 17.4734 6.05469 17.3398ZM17.9121 17.375C17.8024 17.4955 17.6929 17.6168 17.5762 17.7305C17.6926 17.6175 17.8015 17.495 17.9121 17.375Z" fill="currentColor">
+                                            </path>
+                                        </svg>
+                                    </div>{userName}
+                                    <div className="styles_rightIcon__d4zzs">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M9 18L15 12L9 6" stroke="currentColor" strokeWidth="2">
+                                            </path>
+                                        </svg>
+                                    </div>
+                                </div>
+
+                            </button></a>
+                            {userRole === 'admin' && (
+                                <div className="styles_personalAccountLogin__TaYTs"><b>Адміністративний аккаунт</b> - дозволяє змінювати меню та галерею</div>
+                            )}
                             </div>
-                        </div>
+                        )}
                         <div className="styles_heading__sEvKm">Контакти
                         </div><a target="_blank" href="https://maps.google.com/?q=Sobornyi Ave, 100А, Oleksandriia, Kirovohrads'ka oblast, Ukraine, 28000" className="styles_item__h2xmM" rel="noreferrer">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
