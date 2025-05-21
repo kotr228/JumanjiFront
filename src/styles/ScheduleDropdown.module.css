@@ -1,0 +1,55 @@
+.blockWrapper {
+  position: relative;
+  font-size: 14px;
+}
+
+.blockBody {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.blockLabel {
+  font-weight: 500;
+}
+
+.blockValue span {
+  font-weight: 600;
+}
+
+.schedule {
+  margin-top: 4px;
+  color: #1b5e20;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  width: fit-content;
+}
+
+.dropdown {
+  position: absolute;
+  right: 0;
+  bottom: 100%;
+  margin-bottom: 4px;
+  background: white;
+  border: 1px solid #1b5e20;
+  border-radius: 8px;
+  overflow: hidden;
+  z-index: 2;
+}
+
+.scheduleItem {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 16px;
+  font-size: 14px;
+  color: #757575;
+  background: #f5f5f5;
+}
+
+.scheduleItem.active {
+  background: #1b5e20;
+  color: white;
+  font-weight: 600;
+}
