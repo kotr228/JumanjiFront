@@ -1,43 +1,94 @@
-import React from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import './../../styles/gallery.css';
+import { useAuth } from '../../context/AuthContext';
 
 type GalleryImage = {
-  webp: string;
-  jpeg: string;
+  id: number;
+  filename: string;
+  filepath: string;
 };
 
-const imageList: GalleryImage[] = [
-  {
-    webp: "https://cdn-media.choiceqr.com/prod-eat-jumanji-alex/template-gallery/thumbnail_IghOmdt-ldswkAH-SVvBMqK_L-J-s.webp",
-    jpeg: "https://cdn-media.choiceqr.com/prod-eat-jumanji-alex/template-gallery/thumbnail_IghOmdt-ldswkAH-SVvBMqK_A-s-V.jpeg",
-  },
-  {
-    webp: "https://cdn-media.choiceqr.com/prod-eat-jumanji-alex/template-gallery/thumbnail_kvCoSYX-YDQEJFk-HwOcbkk_D-l-M.webp",
-    jpeg: "https://cdn-media.choiceqr.com/prod-eat-jumanji-alex/template-gallery/thumbnail_kvCoSYX-YDQEJFk-HwOcbkk_r-K-W.jpeg",
-  },
-  {
-    webp: "https://cdn-media.choiceqr.com/prod-eat-jumanji-alex/template-gallery/thumbnail_zEKTtGF-WSiGpVA-IjizuIS_C-Q-J.webp",
-    jpeg: "https://cdn-media.choiceqr.com/prod-eat-jumanji-alex/template-gallery/thumbnail_zEKTtGF-WSiGpVA-IjizuIS_g-C-r.jpeg",
-  },
+const API_BASE = 'http://localhost:3000'; // або process.env.REACT_APP_API_URL
 
-  // Додай інші елементи у тому ж форматі...
-];
+const Gallery: React.FC = () => {
+  const [images, setImages] = useState<GalleryImage[]>([]);
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
 
-const Gallery: React.FC = () => (
-  <div className="styles_MainTemplatePhotoGallery__NpGMJ">
-    <div className="styles_photoGalleryTitle__8__s8">Наші фотографії</div>
-    <div className="styles_photoGalleryList__iT_m3">
-      {imageList.map((img, index) => (
-        <div className="styles_photoGalleryListItem__1Nm1z" key={index}>
-          <picture>
-            <source srcSet={img.webp} type="image/webp" />
-            <img src={img.jpeg} alt="gallery" loading="lazy" />
-          </picture>
-        </div>
-      ))}
-      <button className="gallery_addButton" onClick={() => alert("Додасть фото")}>+</button>
+  const { state: authState } = useAuth();
+  const userRole = authState.user?.role;
+
+  // Завантаження списку фото
+  useEffect(() => {
+    fetch(`${API_BASE}/api/photos/geter`)
+      .then(res => res.json())
+      .then(data => setImages(data))
+      .catch(err => console.error('Помилка при отриманні фото:', err));
+  }, []);
+
+  const handleAddClick = () => {
+    fileInputRef.current?.click();
+  };
+
+  const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    const formData = new FormData();
+    formData.append('photo', file);
+
+    try {
+      const response = await fetch(`${API_BASE}/api/photos/seter`, {
+        method: 'POST',
+        body: formData,
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        // Оновлюємо список — додаємо нове фото
+        const newImage: GalleryImage = {
+          id: result.insertId,
+          filename: file.name,
+          filepath: `/public/galery/${result.insertId}-${file.name}`, // заміни, якщо бекенд генерує інший filename
+        };
+        setImages(prev => [newImage, ...prev]);
+      } else {
+        alert(result.error || 'Не вдалося завантажити фото');
+      }
+    } catch (err) {
+      console.error('Помилка при завантаженні фото:', err);
+    }
+  };
+
+  return (
+    <div className="styles_MainTemplatePhotoGallery__NpGMJ">
+      <div className="styles_photoGalleryTitle__8__s8">Наші фотографії</div>
+      <div className="styles_photoGalleryList__iT_m3">
+        {images.map((img, index) => (
+          <div className="styles_photoGalleryListItem__1Nm1z" key={index}>
+            <picture>
+              <source srcSet={`${API_BASE}${img.filepath}`} type="image/webp" />
+              <img
+                src={`${API_BASE}${img.filepath}`}
+                alt={`gallery-${index}`}
+                loading="lazy"
+              />
+            </picture>
+          </div>
+        ))}
+        {userRole === 'admin' && (
+        <button className="gallery_addButton" onClick={handleAddClick}>+</button>
+        )}
+        <input
+          type="file"
+          accept="image/*"
+          style={{ display: 'none' }}
+          ref={fileInputRef}
+          onChange={handleFileChange}
+        />
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 export default Gallery;

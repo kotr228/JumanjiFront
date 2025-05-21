@@ -1,12 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import { sendFeedback, FeedbackPayload } from '../../utils/FeedbackPayload';
+import { fetchFeedback } from '../../utils/fetchFeedback';
 import './../../styles/reviews_&_comments.css';
+
+interface FeedbackItem {
+    id: number;
+    user_id: number;
+    dish_rating: number;
+    service_rating: number;
+    comment: string;
+    contact_allowed: boolean;
+    created_at: string;
+    username: string;
+}
 
 const CommentsIn: React.FC = () => {
 
     const { state } = useAuth();
     const user = state.user;
+    const { state: authState } = useAuth();
+    const userRole = authState.user?.role;
 
     const [foodRating, setFoodRating] = useState<number>(0);
     const [serviceRating, setServiceRating] = useState<number>(0);
@@ -53,6 +67,20 @@ const CommentsIn: React.FC = () => {
         </div>
     );
 
+    const [feedbacks, setFeedbacks] = useState<FeedbackItem[]>([]);
+    const [loading2, setLoading2] = useState(true);
+
+    useEffect(() => {
+        fetchFeedback()
+            .then(data => {
+                setFeedbacks(data);
+                setLoading(false);
+            })
+            .catch(() => {
+                setLoading(false);
+            });
+    }, []);
+
     const handleSubmit = async () => {
         if (foodRating === 0 || serviceRating === 0) {
             alert('Будь ласка, оцініть і страви, і сервіс!');
@@ -60,7 +88,7 @@ const CommentsIn: React.FC = () => {
         }
 
         setLoading(true);
-        
+
         if (!user) {
             alert('Будь ласка, увійдіть у систему');
             return; // або інша логіка
@@ -89,39 +117,54 @@ const CommentsIn: React.FC = () => {
         }
     };
 
+    useEffect(() => {
+  fetchFeedback()
+    .then(data => {
+      console.log('Отримані відгуки з бекенду:', data); // <- ось тут виводимо
+      setFeedbacks(data);
+      setLoading(false);
+    })
+    .catch(error => {
+      console.error('Помилка при завантаженні відгуків:', error);
+      setLoading(false);
+    });
+}, []);
+
+
     return (
         <div className="container py-4">
-            <div className="card shadow-sm">
-                <div className="card-body">
-                    <div className="d-flex justify-content-between mb-3">
-                        <div>
-                            <h5 className="card-title">Оцініть нас, будь ласка!</h5>
+            {userRole !== 'admin' && (
+                <div className="card shadow-sm">
+                    <div className="card-body">
+                        <div className="d-flex justify-content-between mb-3">
+                            <div>
+                                <h5 className="card-title">Оцініть нас, будь ласка!</h5>
+                            </div>
                         </div>
-                    </div>
 
-                    <div className="mb-4">
+                        <div className="mb-4">
+                            <div className="mb-3">
+                                <label className="form-label">Страви</label>
+                                {renderStars(foodRating, setFoodRating, 'food')}
+                            </div>
+
+                            <div>
+                                <label className="form-label">Сервіс</label>
+                                {renderStars(serviceRating, setServiceRating, 'service')}
+                            </div>
+                        </div>
+
                         <div className="mb-3">
-                            <label className="form-label">Страви</label>
-                            {renderStars(foodRating, setFoodRating, 'food')}
+                            <textarea
+                                className="form-control"
+                                rows={3}
+                                placeholder="Коментар"
+                                value={comment}
+                                onChange={e => setComment(e.target.value)}
+                            />
                         </div>
 
-                        <div>
-                            <label className="form-label">Сервіс</label>
-                            {renderStars(serviceRating, setServiceRating, 'service')}
-                        </div>
-                    </div>
-
-                    <div className="mb-3">
-                        <textarea
-                            className="form-control"
-                            rows={3}
-                            placeholder="Коментар"
-                            value={comment}
-                            onChange={e => setComment(e.target.value)}
-                        />
-                    </div>
-
-                    {/*<div className="form-check form-switch mb-3">
+                        {/*<div className="form-check form-switch mb-3">
                         <input
                             className="form-check-input"
                             type="checkbox"
@@ -134,54 +177,80 @@ const CommentsIn: React.FC = () => {
                         </label>
                     </div>*/}
 
-                    <div className="sendFeedback">
-                        <button
-                            type="button"
-                            className="btn btn-primary w-100"
-                            disabled={foodRating === 0 || serviceRating === 0 || loading}
-                            onClick={handleSubmit}
-                        >
-                            {loading ? 'Надсилання...' : 'Надіслати відгук'}
-                        </button>
+                        <div className="sendFeedback">
+                            <button
+                                type="button"
+                                className="btn btn-primary w-100"
+                                disabled={foodRating === 0 || serviceRating === 0 || loading}
+                                onClick={handleSubmit}
+                            >
+                                {loading ? 'Надсилання...' : 'Надіслати відгук'}
+                            </button>
+                        </div>
+
                     </div>
-                    
                 </div>
-            </div>
-            <div className="card shadow-sm">
-                <div className="card-body">
-                    <div className="d-flex justify-content-between mb-3">
-                        <div>
-                            <h5 className="card-title">Нік кристувача який залишив відгук</h5>
+            )}
+            {userRole === 'admin' && (
+                <div className="card shadow-sm">
+                    {feedbacks !== null && feedbacks.length > 0 ? (
+                    <div className="card-body">
+                        <div className="d-flex justify-content-between mb-3">
+                            <div>
+                                <h5 className="card-title">Відгуки</h5>
+                            </div>
                         </div>
                     </div>
-
-                    <div className="mb-4">
-                        <div className="mb-3">
-                            <label className="form-label">Страви</label>
-                            {renderStars(foodRating, setFoodRating, 'food')}
+                    ) : (
+                        <div className="card-body">
+                            <div className="d-flex justify-content-between mb-3">
+                                <div>
+                                    <h5 className="card-title">Відгуків ще немає</h5>
+                                </div>
+                            </div>
                         </div>
+                    )}
+                    {feedbacks.map((fb) => (
+                        <div className="card shadow-sm">
+                            <div className="card-body">
+                                <div className="d-flex justify-content-between mb-3">
+                                    <div>
+                                        <h5 className="card-title"><strong>ID:</strong>{fb.user_id} <strong>Нікнейм:</strong> {fb.username}</h5>
+                                    </div>
+                                </div>
 
-                        <div>
-                            <label className="form-label">Сервіс</label>
-                            {renderStars(serviceRating, setServiceRating, 'service')}
+                                <div className="mb-4">
+                                    <div className="mb-3">
+                                        <p className="card-text"><strong>Оцінка страв:</strong> {fb.dish_rating}/5</p>
+
+                                        <p className="card-text"><strong>Оцінка сервісу:</strong> {fb.service_rating}/5</p>
+
+                                    </div>
+                                    {fb.comment !== null && fb.comment !== '' && (
+                                        <div>
+                                            <label className="form-label">Коментар</label>
+                                            {fb.comment}
+                                        </div>
+                                    )}
+
+                                    <div className="mb-3">
+
+                                        <p className="card-text">
+                                            <small className="text-muted">Дата: {new Date(fb.created_at).toLocaleString()}</small>
+                                        </p>
+
+                                    </div>
+
+                                </div>
+                            </div>
                         </div>
-                    </div>
+                    ))}
 
-                    <div className="sendFeedback">
-                        <button
-                            type="button"
-                            className="btn btn-primary w-100"
-                            disabled={foodRating === 0 || serviceRating === 0 || loading}
-                            onClick={handleSubmit}
-                        >
-                            {loading ? 'Редагування...' : 'Редагувати'}
-                        </button>
-                    </div>
-                    
                 </div>
-            </div>
+            )}
+
         </div>
-        
+
     );
 };
 
