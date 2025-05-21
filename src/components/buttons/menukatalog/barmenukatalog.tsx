@@ -80,7 +80,12 @@ const MenuButtons: React.FC<AppProps & MenuButtonsProps> = ({ userId, dispatch, 
                     <div className="styles_menu-item-left__HxAVf styles_haveRightContent__0HANq">
                       <div className="styles_menu-item-title__Mnuv_">{dish.Name}</div>
                       <div className="styles_menu-item-price__G8nZ_">
-                        <div className="styles_PriceDiscount__zS0u0 styles_discount__EE8JM">{dish.Price} UAH</div>
+                        { dish.Price !== 0 && (
+                        <div className="styles_PriceDiscount__zS0u0 styles_discount__EE8JM">{dish.Price} UAH </div>
+                        )}:{(
+                          <div className="styles_PriceDiscount__zS0u0 styles_discount__EE8JM">Розпродано</div>
+                        )}
+
                       </div>
                       <div className="styles_menu-item-description__Ez7iP">
                         <pre>{dish.Description}</pre>
@@ -88,7 +93,7 @@ const MenuButtons: React.FC<AppProps & MenuButtonsProps> = ({ userId, dispatch, 
                     </div>
                     <div className="styles_menu-item-right__fZWJD">
                       <picture>
-                        <img src={dish.img} alt={dish.Name} loading="lazy" className="styles_previewImage__HiwA8" />
+                        <img src={dish.img} alt='' loading="lazy" className="styles_previewImage__HiwA8" />
                       </picture>
                       <div className="styles_actions__HRsIJ" style={{ display: 'flex', gap: '10px', flexDirection: 'column' }}>
                         <button
