@@ -1,7 +1,26 @@
 import React from 'react';
 import './../../styles/footer.css';
+import { useState } from "react";
+import { ChevronUp, ChevronDown } from "lucide-react";
+
+
+const schedule = [
+    { day: "Понеділок", hours: "10:00 - 22:00" },
+    { day: "Вівторок", hours: "10:00 - 22:00" },
+    { day: "Середа", hours: "10:00 - 22:00" },
+    { day: "Четвер", hours: "10:00 - 22:00" },
+    { day: "Пʼятниця", hours: "10:00 - 22:00" },
+    { day: "Субота", hours: "10:00 - 22:00" },
+    { day: "Неділя", hours: "10:00 - 22:00" },
+];
 
 const Footer = () => {
+
+    const [open, setOpen] = useState(false);
+    const currentDayIndex = new Date().getDay(); // 0 — Неділя
+    const correctedIndex = currentDayIndex === 0 ? 6 : currentDayIndex - 1;
+    // змістити, щоб Понеділок був 0
+
     return (
         <div className="styles_FooterWrapper__Ji6dI">
             <div className="styles_container__ImQx_">
@@ -107,16 +126,67 @@ const Footer = () => {
                                     <div className="styles_blockBody__YZI2b">
                                         <div className="styles_blockLabel__s6vwi">Робочий час:</div>
                                         <div className="styles_blockValue__WQ1cC">
-                                            <div>10:00 - 22:00 <span>Вт</span>
+                                            <div>
+                                                {schedule[currentDayIndex].hours}{" "}
+                                                <span>{schedule[correctedIndex].day.slice(0, 2)}</span>
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="styles_schedule__lyvjd">Розклад <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                        <path d="M6 9L12 16L18 9H6Z" fill="currentColor">
-                                        </path>
-                                    </svg>
-                                        <div style={{ position: "absolute", bottom: '100%', paddingBottom: '4px', right: '0px', zIndex: '2' }}>
-                                        </div>
+
+                                    <div
+                                        className="styles_schedule__lyvjd"
+                                        onClick={() => setOpen((prev) => !prev)}
+                                        style={{ cursor: "pointer", position: "relative" }}
+                                    >
+                                        Розклад{" "}
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            width="24"
+                                            height="24"
+                                            viewBox="0 0 24 24"
+                                            fill="none"
+                                        >
+                                            <path
+                                                d={open ? "M6 15L12 8L18 15H6Z" : "M6 9L12 16L18 9H6Z"}
+                                                fill="currentColor"
+                                            />
+                                        </svg>
+
+                                        {open && (
+                                            <div
+                                                style={{
+                                                    position: "absolute",
+                                                    bottom: "100%",
+                                                    paddingBottom: "4px",
+                                                    right: "0px",
+                                                    zIndex: 2,
+                                                    background: "white",
+                                                    border: "1px solid #1b5e20",
+                                                    borderRadius: "8px",
+                                                    overflow: "hidden",
+                                                    boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
+                                                }}
+                                            >
+                                                {schedule.map((item, index) => (
+                                                    <div
+                                                        key={index}
+                                                        style={{
+                                                            display: "flex",
+                                                            justifyContent: "space-between",
+                                                            padding: "8px 16px",
+                                                            fontSize: "14px",
+                                                            backgroundColor:
+                                                                index === correctedIndex ? "#1b5e20" : "#f5f5f5",
+                                                            color: index === correctedIndex ? "#ffffff" : "#757575",
+                                                            fontWeight: index === correctedIndex ? "600" : "normal",
+                                                        }}
+                                                    >
+                                                        <span>{item.day}</span>
+                                                        <span>{item.hours}</span>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        )}
                                     </div>
                                 </div>
                             </div>
