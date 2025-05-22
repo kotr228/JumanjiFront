@@ -70,7 +70,7 @@ const MenuButtons: React.FC<AppProps & MenuButtonsProps> = ({ userId, dispatch, 
       {menuCategories.map((category) => {
         const relatedDishes = menuFood.filter((dish) => dish.idM === category.id);
 
-        
+
 
         return (
           <div key={category.id} className="DefaultView_categoryWrapper__diWo2 category-observer-js" id={category.idName}>
@@ -84,11 +84,16 @@ const MenuButtons: React.FC<AppProps & MenuButtonsProps> = ({ userId, dispatch, 
                     <div className="styles_menu-item-left__HxAVf styles_haveRightContent__0HANq">
                       <div className="styles_menu-item-title__Mnuv_">{dish.Name}</div>
                       <div className="styles_menu-item-price__G8nZ_">
-                        { dish.Price !== 0 && (
-                        <div className="styles_PriceDiscount__zS0u0 styles_discount__EE8JM">{dish.Price} UAH </div>
-                        )}:{(
-                          <div className="styles_PriceDiscount__zS0u0 styles_discount__EE8JM">Розпродано</div>
+                        {dish.Price != 0 ? (
+                          <div className="styles_PriceDiscount__zS0u0 styles_discount__EE8JM">
+                            {dish.Price} UAH
+                          </div>
+                        ) :  (
+                          <div className="styles_PriceDiscount__zS0u0 styles_discount__EE8JM">
+                            Розпродано
+                          </div>
                         )}
+
 
                       </div>
                       <div className="styles_menu-item-description__Ez7iP">
@@ -96,11 +101,11 @@ const MenuButtons: React.FC<AppProps & MenuButtonsProps> = ({ userId, dispatch, 
                       </div>
                     </div>
                     <div className="styles_menu-item-right__fZWJD">
-                    {dish.img?.trim() && (
-                      <picture>
-                        <img src={dish.img} alt='' loading="lazy" className="styles_previewImage__HiwA8" />
-                      </picture>
-                    )}
+                      {dish.img?.trim() && (
+                        <picture>
+                          <img src={dish.img} alt='' loading="lazy" className="styles_previewImage__HiwA8" />
+                        </picture>
+                      )}
                       <div className="styles_actions__HRsIJ" style={{ display: 'flex', gap: '10px', flexDirection: 'column' }}>
                         <button
                           onClick={() => toggleFavorite(dish.id)}
@@ -130,9 +135,9 @@ const MenuButtons: React.FC<AppProps & MenuButtonsProps> = ({ userId, dispatch, 
                 </div>
               ))}
               {userRole === 'admin' && (
-              <div className="styles_menu-item-right__fZWJD">
-                <AddDrink idM={category.id} />
-              </div>
+                <div className="styles_menu-item-right__fZWJD">
+                  <AddDrink idM={category.id} />
+                </div>
               )}
             </div>
           </div>
