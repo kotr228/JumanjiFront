@@ -69,9 +69,11 @@ const MenuButtons: React.FC<MenuButtonsProps> = ({ userId }) => {
                   </div>
                 </div>
                 <div className="styles_menu-item-right__fZWJD">
-                  <picture>
-                    <img src={dish.img} alt={dish.Name} loading="lazy" className="styles_previewImage__HiwA8" />
-                  </picture>
+                  {dish.img?.trim() && (
+                    <picture>
+                      <img src={dish.img} alt='' loading="lazy" className="styles_previewImage__HiwA8" />
+                    </picture>
+                  )}
                   <div className="styles_actions__HRsIJ" style={{ display: 'flex', gap: '10px', flexDirection: 'column' }}>
                     <button
                       onClick={() => toggleFavorite(dish.id)}
