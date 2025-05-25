@@ -88,7 +88,7 @@ const MenuButtons: React.FC<AppProps & MenuButtonsProps> = ({ userId, dispatch, 
                           <div className="styles_PriceDiscount__zS0u0 styles_discount__EE8JM">
                             {dish.Price} UAH
                           </div>
-                        ) :  (
+                        ) : (
                           <div className="styles_PriceDiscount__zS0u0 styles_discount__EE8JM">
                             Розпродано
                           </div>
@@ -99,6 +99,11 @@ const MenuButtons: React.FC<AppProps & MenuButtonsProps> = ({ userId, dispatch, 
                       <div className="styles_menu-item-description__Ez7iP">
                         <pre>{dish.Description}</pre>
                       </div>
+                      {dish.Weight !== 0 && (
+                        <div className="styles_menu-item-description__Ez7iP">
+                          <pre>{dish.Weight} мл</pre>
+                        </div>
+                      )}
                     </div>
                     <div className="styles_menu-item-right__fZWJD">
                       {dish.img?.trim() && (

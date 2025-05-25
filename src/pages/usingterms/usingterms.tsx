@@ -1,7 +1,6 @@
 import Header from '../../components/headermenu/header'
 import Footer from '../../components/footer/footer'
 import Using from '../../components/texts/using';
-import { AppProps } from "../../../state/state";
 import React from 'react';
 
 const PrivacyPolicy: React.FC = () => {

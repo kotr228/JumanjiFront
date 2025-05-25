@@ -115,6 +115,11 @@ const MenuButtons: React.FC<AppProps & MenuButtonsProps> = ({ userId, dispatch, 
                       <div className="styles_menu-item-description__Ez7iP">
                         <pre>{dish.Description}</pre>
                       </div>
+                      { dish.Weight !== 0 && (
+                      <div className="styles_menu-item-description__Ez7iP">
+                        <pre>{dish.Weight} грам</pre>
+                      </div>
+                      )}
                     </div>
                     <div className="styles_menu-item-right__fZWJD">
                       {dish.img?.trim() && (
