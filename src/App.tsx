@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
 import './App.css'
 import React, { useEffect } from 'react';

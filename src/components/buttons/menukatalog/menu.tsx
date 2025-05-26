@@ -1,12 +1,10 @@
 import { useNavigate } from 'react-router-dom';
 import './../../../styles/menu.css';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { AppProps } from "../../../state/state";
-import { MenuCategoryItem } from '../../../state/state';
-import AddCategory from './AddCategory';
 
 
-const MenuButtons: React.FC<AppProps> = ({ state, dispatch }) => {
+const MenuButtons: React.FC<AppProps> = ({ state }) => {
     const navigate = useNavigate();
 
     const menuCategories = state._Menu._MenuKategory;

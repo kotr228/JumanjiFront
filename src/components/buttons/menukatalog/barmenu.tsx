@@ -1,10 +1,9 @@
 import './../../../styles/menu.css'
 import { useNavigate } from 'react-router-dom';
 import { AppProps } from "../../../state/state";
-import { MenuCategoryItem } from '../../../state/state';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
-const BarMenuButtons: React.FC<AppProps> = ({ state, dispatch }) => {
+const BarMenuButtons: React.FC<AppProps> = ({ state }) => {
 
     const navigate = useNavigate();
 

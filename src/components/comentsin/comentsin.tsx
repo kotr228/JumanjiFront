@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../context/AuthContext';
-import { sendFeedback, FeedbackPayload } from '../../utils/FeedbackPayload';
+
 import { fetchFeedback } from '../../utils/fetchFeedback';
 import './../../styles/reviews_&_comments.css';
 
@@ -68,7 +68,7 @@ const CommentsIn: React.FC = () => {
     );
 
     const [feedbacks, setFeedbacks] = useState<FeedbackItem[]>([]);
-    const [loading2, setLoading2] = useState(true);
+    
 
     useEffect(() => {
         fetchFeedback()
@@ -94,16 +94,10 @@ const CommentsIn: React.FC = () => {
             return; // або інша логіка
         }
 
-        const payload: FeedbackPayload = {
-            user_id: user.id,        // гарантовано number
-            dish_rating: foodRating,
-            service_rating: serviceRating,
-            comment,
-            contact_allowed: contactAllowed,
-        };
+        
 
         try {
-            const data = await sendFeedback(payload);
+            
             alert('Відгук надіслано! Дякуємо!');
             setFoodRating(0);
             setServiceRating(0);
@@ -164,7 +158,7 @@ const CommentsIn: React.FC = () => {
                             />
                         </div>
 
-                        {/*<div className="form-check form-switch mb-3">
+                        <div className="form-check form-switch mb-3">
                         <input
                             className="form-check-input"
                             type="checkbox"
@@ -175,7 +169,7 @@ const CommentsIn: React.FC = () => {
                         <label className="form-check-label" htmlFor="contactSwitch">
                             Будь ласка, залиште свої контакти
                         </label>
-                    </div>*/}
+                    </div>
 
                         <div className="sendFeedback">
                             <button

@@ -1,5 +1,5 @@
-import React, { FC, CSSProperties } from 'react';
-import { useNavigate, Link } from "react-router-dom";
+import React, { FC } from 'react';
+import { useNavigate } from "react-router-dom";
 import './../../styles/header.css';
 
 type IconButtonProps = {
@@ -56,18 +56,7 @@ const MenuButton: FC = () => (
   </button>
 );
 
-const Slider: FC = () => (
-  <div className="style_MainTemplate__03N19">
-    <div className="style_Swiper__VqPC7 style_MainTemplateSwiper__UHS32 style_MainTemplateSwiperBorder__3gPrr">
-      <div className="swiper swiper-initialized swiper-horizontal swiper-pointer-events">
-        <div className="swiper-wrapper" style={{ transform: 'translate3d(0px, 0px, 0px)' } as CSSProperties}>
-          <div className="swiper-slide swiper-slide-active" style={{ width: '410px' }}>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-);
+
 
 const Header: FC = () => {
   return (

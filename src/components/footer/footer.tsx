@@ -1,7 +1,6 @@
-import React from 'react';
+
 import './../../styles/footer.css';
 import { useState } from "react";
-import { ChevronUp, ChevronDown } from "lucide-react";
 
 
 const schedule = [

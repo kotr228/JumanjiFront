@@ -1,13 +1,8 @@
-import React, { FC, CSSProperties } from 'react';
-import { useNavigate, Link } from "react-router-dom";
+import { FC } from 'react';
+import { useNavigate} from "react-router-dom";
 import './../../styles/header.css';
 
-type IconButtonProps = {
-  href: string;
-  ariaLabel: string;
-  title: string;
-  children: React.ReactNode;
-};
+
 
 const Logo = () => {
   const navigate = useNavigate(); // Оголошення useNavigate
@@ -30,44 +25,6 @@ const Logo = () => {
   );
 };
 
-const IconButton: FC<IconButtonProps> = ({ href, ariaLabel, title, children }) => (
-  <a href={href}>
-    <button
-      aria-label={ariaLabel}
-      title={title}
-      className="styles_button___Dvql styles_sizeSmall__NCTix styles_appearanceStroke__LKd1h styles_button__01Xtp"
-    >
-      {children}
-    </button>
-  </a>
-);
-
-const MenuButton: FC = () => (
-  <button
-    aria-label="Меню"
-    title="Меню"
-    className="styles_button___Dvql styles_sizeSmall__NCTix styles_appearanceStroke__LKd1h styles_button__01Xtp"
-  >
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-    <rect x="4" y="6" width="16" height="2" fill="#213547" />
-      <rect x="4" y="11" width="16" height="2" fill="#213547" />
-      <rect x="4" y="16" width="16" height="2" fill="#213547" />
-    </svg>
-  </button>
-);
-
-const Slider: FC = () => (
-  <div className="style_MainTemplate__03N19">
-    <div className="style_Swiper__VqPC7 style_MainTemplateSwiper__UHS32 style_MainTemplateSwiperBorder__3gPrr">
-      <div className="swiper swiper-initialized swiper-horizontal swiper-pointer-events">
-        <div className="swiper-wrapper" style={{ transform: 'translate3d(0px, 0px, 0px)' } as CSSProperties}>
-          <div className="swiper-slide swiper-slide-active" style={{ width: '410px' }}>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-);
 
 const Header: FC = () => {
   return (

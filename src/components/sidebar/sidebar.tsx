@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import './../../styles/sidebar.css'; // стиль можна адаптувати під себе
 import { useAuth } from '../../context/AuthContext';
 

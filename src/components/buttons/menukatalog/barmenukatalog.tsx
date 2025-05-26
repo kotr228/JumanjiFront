@@ -1,8 +1,7 @@
-import { useNavigate, useParams } from 'react-router-dom';
+
 import './../../../styles/menu.css';
 import React, { useEffect, useState } from 'react';
 import { AppProps } from "../../../state/state";
-import { MenuCategoryItem, MenuFoodItem } from '../../../state/state';
 import { addToFavoritesdinks, removeFromFavoritesdinks, fetchFavoritesdinks } from '../../../utils/favoritesdrinks';
 import AddDrink from './DrinksAdd';
 import { useAuth } from '../../../context/AuthContext';
@@ -12,11 +11,10 @@ interface MenuButtonsProps {
   sectionID: string | undefined; // Додали проп sectionID
 }
 
-const MenuButtons: React.FC<AppProps & MenuButtonsProps> = ({ userId, dispatch, sectionID, state }) => {
+const MenuButtons: React.FC<AppProps & MenuButtonsProps> = ({ userId, sectionID, state }) => {
 
   const menuCategories = state._BarMenu._BarMenuKategory;
   const menuFood = state._BarMenu._BarMenuFood;
-  const navigate = useNavigate();
 
   const [favoriteDishes, setFavoriteDishes] = useState<number[]>([]);
 
@@ -56,9 +54,6 @@ const MenuButtons: React.FC<AppProps & MenuButtonsProps> = ({ userId, dispatch, 
     }
   };
 
-  const handleClick = (id: string) => {
-    navigate(`/menu/${id}`);
-  };
 
   return (
     <div>
