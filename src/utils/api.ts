@@ -4,7 +4,7 @@ import { MenuCategoryItem, MenuFoodItem } from '../state/state';
 
 export const fetchMenu = async (): Promise<MenuCategoryItem[]> => {
     try {
-        const response = await fetch('http://localhost:3000/api/users/getMenuKategory');
+        const response = await fetch('http://server.jumanjialex.com.ua/api/users/getMenuKategory');
         if (!response.ok) {
             throw new Error('Помилка при завантаженні меню');
         }
@@ -20,7 +20,7 @@ export const fetchMenu = async (): Promise<MenuCategoryItem[]> => {
 
 export const fetchMenuFood = async () => {
     try {
-        const response = await fetch('http://localhost:3000/api/users/getMenuFood');
+        const response = await fetch('http://server.jumanjialex.com.ua/api/users/getMenuFood');
         if (!response.ok) {
             throw new Error('Помилка при завантаженні блюд з меню');
         }
@@ -36,7 +36,7 @@ export const fetchMenuFood = async () => {
 
 export const fetchBarMenu = async () => {
     try {
-        const response = await fetch('http://localhost:3000/api/users/getBarMenuKategory');
+        const response = await fetch('http://server.jumanjialex.com.ua/api/users/getBarMenuKategory');
         if (!response.ok) {
             throw new Error('Помилка при завантаженні бар-меню');
         }
@@ -52,7 +52,7 @@ export const fetchBarMenu = async () => {
 
 export const fetchBarMenuFood = async () => {
     try {
-        const response = await fetch('http://localhost:3000/api/users/getBarMenuFood');
+        const response = await fetch('http://server.jumanjialex.com.ua/api/users/getBarMenuFood');
         if (!response.ok) {
             throw new Error('Помилка при завантаженні блюд з бар-меню');
         }

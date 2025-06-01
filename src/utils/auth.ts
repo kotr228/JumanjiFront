@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:3000/api/auth';
+const API_URL = 'http://server.jumanjialex.com.ua/api/auth';
 
 interface RegisterData {
   name: string;

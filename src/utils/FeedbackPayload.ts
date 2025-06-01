@@ -7,7 +7,7 @@ export interface FeedbackPayload {
 }
 
 export async function sendFeedback(payload: FeedbackPayload) {
-  const response = await fetch('http://localhost:3000/api/feedback/add', { 
+  const response = await fetch('http://server.jumanjialex.com.ua/api/feedback/add', { 
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(payload),

@@ -8,7 +8,7 @@ type GalleryImage = {
   filepath: string;
 };
 
-const API_BASE = 'http://localhost:3000'; // або process.env.REACT_APP_API_URL
+const API_BASE = 'http://server.jumanjialex.com.ua'; // або process.env.REACT_APP_API_URL
 
 const Gallery: React.FC = () => {
   const [images, setImages] = useState<GalleryImage[]>([]);

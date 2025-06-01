@@ -7,7 +7,7 @@ export interface CategoryData {
 
 export const addCategory = async (data: CategoryData): Promise<number> => {
   try {
-    const response = await axios.post('http://localhost:3000/api/menu/addcategory', data);
+    const response = await axios.post('http://server.jumanjialex.com.ua/api/menu/addcategory', data);
     return response.data.id;
   } catch (error) {
     console.error('Помилка при додаванні категорії:', error);

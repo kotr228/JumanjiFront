@@ -1,8 +1,6 @@
-
 import './../../../styles/menu.css';
 import React, { useEffect, useState } from 'react';
 import { AppProps } from "../../../state/state";
-
 import { addToFavorites, removeFromFavorites, fetchFavorites } from '../../../utils/favorites';
 import { fetchFavoritesdinks } from '../../../utils/favoritesdrinks';
 import AddDish from './MenuAdd';
@@ -13,7 +11,7 @@ interface MenuButtonsProps {
   sectionID: string | undefined; // Додали проп sectionID
 }
 
-const MenuButtons: React.FC<AppProps & MenuButtonsProps> = ({ userId, sectionID, state }) => {
+const AdminMenuButtons: React.FC<AppProps & MenuButtonsProps> = ({ userId, sectionID, state }) => {
 
   const menuCategories = state._Menu._MenuKategory;
   const menuFood = state._Menu._MenuFood;
@@ -172,4 +170,4 @@ const MenuButtons: React.FC<AppProps & MenuButtonsProps> = ({ userId, sectionID,
   );
 };
 
-export default MenuButtons;
+export default AdminMenuButtons;

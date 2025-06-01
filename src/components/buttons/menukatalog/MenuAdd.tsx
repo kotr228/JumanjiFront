@@ -42,7 +42,7 @@ const AddDish: React.FC<AddDishProps> = ({ idM }) => {
       formDataFile.append('image', file);
 
       try {
-        const res = await fetch('http://localhost:3000/api/img/upload', {
+        const res = await fetch('http://server.jumanjialex.com.ua/api/img/upload', {
           method: 'POST',
           body: formDataFile,
         });

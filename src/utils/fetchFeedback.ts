@@ -1,6 +1,6 @@
 export const fetchFeedback = async () => {
   try {
-    const response = await fetch('http://localhost:3000/api/feedback/feedback', {
+    const response = await fetch('http://server.jumanjialex.com.ua/api/feedback/feedback', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

@@ -8,7 +8,7 @@ export interface DishPayload {
 }
 
 export async function addDish(dish: DishPayload): Promise<{ id: number }> {
-  const response = await fetch('http://localhost:3000/api/add/menufood', {
+  const response = await fetch('http://server.jumanjialex.com.ua/api/add/menufood', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(dish),

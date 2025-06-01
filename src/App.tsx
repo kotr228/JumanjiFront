@@ -15,6 +15,9 @@ import LogIn from "./components/LogIn/LogIn";
 import Favorites from "./pages/favorites/favorites";
 import Popular from "./pages/popular/popular";
 import Coments from "./pages/coments/coments";
+import AdminPanel from "./pages/adminpanel/AdminPanel";
+import AdminPanelMenu from "./pages/adminpanelmenu/adminpanelmenu";
+import AdminMenu from "./pages/adminmenu/adminmenu";
 import { AppProps } from "./state/state";
 import  UserLogger  from "./context/UserLogger";
 
@@ -45,6 +48,9 @@ const App:React.FC<AppProps> = ({state, dispatch} ) => {
           <Route path="/favorites" element={<Favorites dispatch = {dispatch} state={state}/>} />
           <Route path="/popular" element={<Popular dispatch = {dispatch} state={state}/>} />
           <Route path="/feedback" element={<Coments/>}/>
+          <Route path="/adminpanel" element={<AdminPanel dispatch = {dispatch} state={state}/>} />
+          <Route path="/adminmenu" element={<AdminMenu dispatch = {dispatch} state={state}/>} />
+          <Route path="/adminmenukatalog/:sectionID" element={<AdminPanelMenu dispatch = {dispatch} state={state}/>} />
         </Routes>
      </AuthProvider>
     </div>

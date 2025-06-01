@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:3000/api/favoritesdrinks';
+const API_URL = 'http://server.jumanjialex.com.ua/api/favoritesdrinks';
 
 export async function addToFavoritesdinks(userId: number, dishId: number) {
   const res = await fetch(`${API_URL}/add`, {
