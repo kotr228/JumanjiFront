@@ -74,15 +74,13 @@ const MenuButtons: React.FC<AppProps & MenuButtonsProps> = ({ sectionID, state }
                                                     onChange={(e) => handleDishChange(dish._idx, 'Description', e.target.value)}
                                                 />
                                             </div>
-                                            {dish.Weight !== 0 && (
                                                 <div className="styles_menu-item-description__Ez7iP">
                                                     <input
                                                         type="number"
                                                         value={dish.Weight}
                                                         onChange={(e) => handleDishChange(dish._idx, 'Weight', parseFloat(e.target.value))}
-                                                    /> грам
+                                                    /> міліграм
                                                 </div>
-                                            )}
                                         </div>
                                         <div className="styles_menu-item-right__fZWJD">
                                             {dish.img?.trim() && (
