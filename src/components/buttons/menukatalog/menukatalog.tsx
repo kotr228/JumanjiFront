@@ -4,7 +4,9 @@ import { AppProps } from "../../../state/state";
 import { addToFavorites, removeFromFavorites, fetchFavorites } from '../../../utils/favorites';
 import { fetchFavoritesdinks } from '../../../utils/favoritesdrinks';
 import AddDish from './MenuAdd';
+import CartButton from '../menu/CartButton';
 import { useAuth } from '../../../context/AuthContext';
+import { useCart } from '../../../context/CartContext';
 
 interface MenuButtonsProps {
   userId: number;
@@ -15,13 +17,19 @@ const AdminMenuButtons: React.FC<AppProps & MenuButtonsProps> = ({ userId, secti
 
   const menuCategories = state._Menu._MenuKategory;
   const menuFood = state._Menu._MenuFood;
-  
+
 
   const [favoriteDishes, setFavoriteDishes] = useState<number[]>([]);
   const [favoriteDrinks, setFavoriteDrinks] = useState<number[]>([]);
+  const { cart, toggleCartItem } = useCart();
+
 
   const { state: authState } = useAuth();
   const userRole = authState.user?.role;
+
+  const onToggleCartItem = (dishId: number) => {
+    toggleCartItem(dishId);
+  };
 
   useEffect(() => {
     if (sectionID) {
@@ -113,10 +121,10 @@ const AdminMenuButtons: React.FC<AppProps & MenuButtonsProps> = ({ userId, secti
                       <div className="styles_menu-item-description__Ez7iP">
                         <pre>{dish.Description}</pre>
                       </div>
-                      { dish.Weight !== 0 && (
-                      <div className="styles_menu-item-description__Ez7iP">
-                        <pre>{dish.Weight} грам</pre>
-                      </div>
+                      {dish.Weight !== 0 && (
+                        <div className="styles_menu-item-description__Ez7iP">
+                          <pre>{dish.Weight} грам</pre>
+                        </div>
                       )}
                     </div>
                     <div className="styles_menu-item-right__fZWJD">
@@ -149,6 +157,16 @@ const AdminMenuButtons: React.FC<AppProps & MenuButtonsProps> = ({ userId, secti
                           )}
                         </button>
 
+                        <button
+                          onClick={() => onToggleCartItem(dish.id)}
+                          className="styles_button___Dvql styles_sizeSmall__NCTix styles_appearancePrimaryStroke__2HcO0"
+                          style={{ display: 'flex', alignItems: 'center', gap: '6px' }}
+                        >
+                          {cart.includes(dish.id) ? 'Видалити з кошика' : 'Додати в кошик'}
+                        </button>
+
+
+
                       </div>
                     </div>
 
@@ -156,14 +174,18 @@ const AdminMenuButtons: React.FC<AppProps & MenuButtonsProps> = ({ userId, secti
                 </div>
               ))}
               {userRole === 'admin' && (
-              <div className="styles_menu-item-right__fZWJD">
-                <AddDish idM={category.id} />
-              </div>
+                <div className="styles_menu-item-right__fZWJD">
+                  <AddDish idM={category.id} />
+                </div>
               )}
             </div>
           </div>
         );
       })}
+
+      
+        <CartButton itemCount={cart.length} />
+      
 
     </div>
 

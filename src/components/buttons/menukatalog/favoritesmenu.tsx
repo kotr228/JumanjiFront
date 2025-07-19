@@ -1,4 +1,6 @@
-
+import { useCart } from '../../../context/CartContext';
+import { useAuth } from '../../../context/AuthContext';
+import CartButton from '../menu/CartButton';
 import './../../../styles/menu.css';
 import React, { useEffect, useState } from 'react';
 import { AppProps } from "../../../state/state";
@@ -13,9 +15,19 @@ const MenuButtons: React.FC<AppProps & MenuButtonsProps> = ({ userId, state }) =
 
   const menuCategories = state._Menu._MenuKategory;
   const menuFood = state._Menu._MenuFood;
-  
+  const { cart, toggleCartItem } = useCart();
 
   const [favoriteDishes, setFavoriteDishes] = useState<number[]>([]);
+
+  const { state: authState } = useAuth();
+
+  const onToggleCartItem = (dishId: number) => {
+    if (!authState.user) {
+      alert('Будь ласка, увійдіть, щоб додати у кошик');
+      return;
+    }
+    toggleCartItem(dishId);
+  };
 
   useEffect(() => {
     fetchFavorites(userId)
@@ -98,6 +110,14 @@ const MenuButtons: React.FC<AppProps & MenuButtonsProps> = ({ userId, state }) =
                           )}
                         </button>
 
+                        <button
+                          onClick={() => onToggleCartItem(dish.id)}
+                          className="styles_button___Dvql styles_sizeSmall__NCTix styles_appearancePrimaryStroke__2HcO0"
+                          style={{ display: 'flex', alignItems: 'center', gap: '6px' }}
+                        >
+                          {cart.includes(dish.id) ? 'Видалити з кошика' : 'Додати в кошик'}
+                        </button>
+
                       </div>
                     </div>
 
@@ -108,6 +128,10 @@ const MenuButtons: React.FC<AppProps & MenuButtonsProps> = ({ userId, state }) =
           </div>
         );
       })}
+
+      {authState.user && (
+        <CartButton itemCount={cart.length} />
+      )}
 
     </div>
 

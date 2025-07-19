@@ -18,8 +18,11 @@ import Coments from "./pages/coments/coments";
 import AdminPanel from "./pages/adminpanel/AdminPanel";
 import AdminPanelMenu from "./pages/adminpanelmenu/adminpanelmenu";
 import AdminMenu from "./pages/adminmenu/adminmenu";
+import Operators from "./pages/operators/operators";
+import CardPage from "./pages/card/cardPage";
 import { AppProps } from "./state/state";
 import  UserLogger  from "./context/UserLogger";
+import OrderPage from "./pages/OrderPage/OrderPage";
 
 const App:React.FC<AppProps> = ({state, dispatch} ) => {
 
@@ -51,6 +54,9 @@ const App:React.FC<AppProps> = ({state, dispatch} ) => {
           <Route path="/adminpanel" element={<AdminPanel dispatch = {dispatch} state={state}/>} />
           <Route path="/adminmenu" element={<AdminMenu dispatch = {dispatch} state={state}/>} />
           <Route path="/adminmenukatalog/:sectionID" element={<AdminPanelMenu dispatch = {dispatch} state={state}/>} />
+          <Route path="/operators" element={<Operators dispatch = {dispatch} state={state}/>} />
+          <Route path="/cart" element={<CardPage state={state} dispatch={dispatch}/>} />
+          <Route path="/order" element={<OrderPage dispatch = {dispatch} state={state} />} />
         </Routes>
      </AuthProvider>
     </div>
