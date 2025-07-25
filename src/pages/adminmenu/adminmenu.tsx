@@ -1,4 +1,4 @@
-import Header from '../../components/headermenu/header'
+import Header from '../../components/headermenu/adminheader'
 import MenuButtons from '../../components/buttons/menukatalog/AdminMenuButtons'
 import BarMenuButtons from '../../components/buttons/menukatalog/AdminBarMenuButtons';
 import Footer from '../../components/footer/footer'

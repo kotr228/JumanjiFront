@@ -1,16 +1,24 @@
-import React, { useState } from 'react';
-import { useCart } from '../../context/CartContext';
+import React, { useState, useEffect } from 'react';
 import { AppProps } from '../../state/state';
-import { addOrder } from '../../utils/apiOrder'; // імпорт твоєї функції додавання замовлення
+import { addOrder } from '../../utils/apiOrder';
+import './../../styles/reviews_&_comments.css';
+import CartNone from '../cartnone/cartnone';
 
-interface CartPageProps extends AppProps {
-  state: AppProps['state'];
-}
+interface CartPageProps extends AppProps { }
 
-const CartPage: React.FC<CartPageProps> = ({ state }) => {
-  const { cart, toggleCartItem, clearCart } = useCart();
+type Table = {
+  id: number;
+  table_number: number;
+  seats: number;
+  location: string;
+  is_vip: boolean;
+  is_active?: boolean;
+};
 
+const CartPage: React.FC<CartPageProps> = ({ state, dispatch }) => {
+  const cart = state._Cart.cart;
   const allDishes = state._Menu._MenuFood;
+
   const cartDishes = allDishes.filter(dish => cart.includes(dish.id));
 
   const [customerName, setCustomerName] = useState('');
@@ -18,6 +26,10 @@ const CartPage: React.FC<CartPageProps> = ({ state }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
+
+  const [tables, setTables] = useState<Table[]>([]);
+  const [lastOrder, setLastOrder] = useState<typeof cartDishes>([]);
+  const [lastTotal, setLastTotal] = useState(0);
 
   const total = cartDishes.reduce((sum, dish) => sum + Number(dish.Price || 0), 0);
 
@@ -48,8 +60,12 @@ const CartPage: React.FC<CartPageProps> = ({ state }) => {
         operator: '',
       });
 
+      setLastOrder(cartDishes);
+      setLastTotal(total);
       setSuccess(true);
-      clearCart();
+
+
+      dispatch({ type: 'CLEAR_CART' });
       setCustomerName('');
       setTableNumber('');
     } catch (err: any) {
@@ -59,14 +75,43 @@ const CartPage: React.FC<CartPageProps> = ({ state }) => {
     }
   };
 
+  useEffect(() => {
+    const fetchTables = async () => {
+      try {
+        const res = await fetch('http://server.jumanjialex.com.ua/api/tables');
+        if (!res.ok) throw new Error('Помилка при завантаженні столиків');
+        const data = await res.json();
+        setTables(data);
+      } catch (err: any) {
+        console.error('❌', err.message);
+      }
+    };
+
+    fetchTables();
+  }, []);
+
+
   if (success) {
-    return <h2>✅ Замовлення створено успішно!</h2>;
+    return (
+      <div className="container py-4">
+        <h2>Замовлення створено успішно!</h2>
+        <h4>Список замовлених страв:</h4>
+        <ul>
+          {lastOrder.map(dish => (
+            <li key={dish.id}>
+              <strong>{dish.Name}</strong> — {dish.Price} грн
+            </li>
+          ))}
+        </ul>
+        <p><strong>Загальна сума:</strong> {lastTotal} грн</p>
+      </div>
+    );
   }
 
   return (
-    <div>
+    <div className="container py-4">
       <h2>Кошик</h2>
-      {cartDishes.length === 0 && <p>Ваш кошик порожній</p>}
+      {cartDishes.length === 0 && <CartNone />}
 
       <div className="DefaultView_categoryMenu__Mi7A2">
         {cartDishes.map(dish => (
@@ -94,9 +139,12 @@ const CartPage: React.FC<CartPageProps> = ({ state }) => {
                   </picture>
                 )}
 
-                <div className="styles_actions__HRsIJ" style={{ display: 'flex', gap: '10px', flexDirection: 'column' }}>
+                <div
+                  className="styles_actions__HRsIJ"
+                  style={{ display: 'flex', gap: '10px', flexDirection: 'column' }}
+                >
                   <button
-                    onClick={() => toggleCartItem(dish.id)}
+                    onClick={() => dispatch({ type: 'TOGGLE_CART_ITEM', payload: dish.id })}
                     className="styles_button___Dvql styles_sizeSmall__NCTix styles_appearancePrimaryStroke__2HcO0"
                     style={{ display: 'flex', alignItems: 'center', gap: '6px' }}
                   >
@@ -110,45 +158,51 @@ const CartPage: React.FC<CartPageProps> = ({ state }) => {
       </div>
 
       {cartDishes.length > 0 && (
-        <div style={{ marginTop: '2rem' }}>
+        <div className="form-label card shadow-sm" style={{ marginTop: '2rem' }}>
           <p><strong>Загальна сума:</strong> {total} грн</p>
 
-          <input
+          <input className="form-control"
             type="text"
             placeholder="Ваше ім'я"
             value={customerName}
             onChange={e => setCustomerName(e.target.value)}
-            style={{ display: 'block', marginBottom: '1rem', padding: '0.5rem', width: '200px' }}
+            style={{ display: 'block', marginBottom: '1rem', padding: '0.5rem', width: '100%' }}
           />
 
-          <select
+          <select className="form-control"
             value={tableNumber}
             onChange={e => setTableNumber(e.target.value ? Number(e.target.value) : '')}
-            style={{ display: 'block', marginBottom: '1rem', padding: '0.5rem', width: '200px' }}
+            style={{ display: 'block', marginBottom: '1rem', padding: '0.5rem', width: '100%' }}
           >
             <option value="">Оберіть номер столика</option>
-            {[1, 2, 3, 4, 5].map(num => (
-              <option key={num} value={num}>{num}</option>
-            ))}
+            {tables
+              .filter(t => t.is_active !== false)
+              .map(t => (
+                <option key={t.id} value={t.table_number}>
+                  №{t.table_number} ({t.seats} місць){t.is_vip ? ' [VIP]' : ''}
+                </option>
+              ))}
           </select>
 
-          {error && <p style={{ color: 'red' }}>{error}</p>}
 
-          <button
-            onClick={submitOrder}
-            disabled={loading}
-            style={{
-              padding: '12px 24px',
-              backgroundColor: loading ? '#a0aec0' : '#3b82f6',
-              color: 'white',
-              border: 'none',
-              borderRadius: '8px',
-              fontSize: '16px',
-              cursor: loading ? 'not-allowed' : 'pointer',
-            }}
-          >
-            {loading ? 'Відправка...' : 'Оформити замовлення'}
-          </button>
+          {error && <p style={{ color: 'red' }}>{error}</p>}
+          <div className="sendFeedback">
+            <button className="btn btn-primary w-100"
+              onClick={submitOrder}
+              disabled={loading}
+              style={{
+                padding: '12px 24px',
+                backgroundColor: loading ? '#a0aec0' : '#458505',
+                color: 'white',
+                border: 'none',
+
+                fontSize: '16px',
+                cursor: loading ? 'not-allowed' : 'pointer',
+              }}
+            >
+              {loading ? 'Відправка...' : 'Оформити замовлення'}
+            </button>
+          </div>
         </div>
       )}
     </div>

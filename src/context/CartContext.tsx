@@ -23,6 +23,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   // При зміні кошика — зберігаємо в localStorage
   useEffect(() => {
     localStorage.setItem('cart', JSON.stringify(cart));
+    console.log("Cart changed:", cart);
   }, [cart]);
 
   const addToCart = (id: number) => {
@@ -39,10 +40,15 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const toggleCartItem = (id: number) => {
-    setCart(prev =>
-      prev.includes(id) ? prev.filter(itemId => itemId !== id) : [...prev, id]
-    );
-  };
+  setCart(prevCart => {
+    if (prevCart.includes(id)) {
+      return prevCart.filter(item => item !== id);
+    } else {
+      return [...prevCart, id];
+    }
+  });
+};
+
 
   const clearCart = () => setCart([]);
 

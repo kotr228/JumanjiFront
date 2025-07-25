@@ -4,6 +4,8 @@ export interface User {
   id: number;
   name: string;
   email: string;
+  phone?: string | null;
+  telegram_nick?: string | null;
   role: string; // 'admin' | 'user'
 }
 

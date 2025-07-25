@@ -4485,3 +4485,41 @@ table td {
 .hiddenScroll::-webkit-scrollbar {
   display: none;
 }
+
+.card.shadow-sm{
+    color: black;
+    border: 1px solid #458505;
+    border-radius: 12px;
+    background-color:  none;
+}
+.d-flex.justify-content-between.mb-3{
+   color: #458505;
+}
+.mb-3{
+    color:black;
+    background-color: none;
+}
+.form-label{
+    color:black;
+    background-color: white;
+}
+.mb-3 textarea{
+    border: 1px solid #458505;
+}
+.sendFeedback{
+    color: black;
+    background-color: #458505;
+    border: 1px solid #458505;
+    border-radius: 12px;
+}
+.sendFeedback button{
+    background-color: #458505 !important;
+    border: 1px solid #458505 !important;
+    border-radius: 12px;
+    color: white !important;
+    transition: background-color 0.3s ease, border 0.3s ease, color 0.3s ease;
+}
+.sendFeedback:hover{
+    border: 3px solid #458505;
+    background-color:#64c404;
+}

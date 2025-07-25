@@ -1,5 +1,4 @@
 import { Routes, Route } from "react-router-dom";
-import { AuthProvider } from "./context/AuthContext";
 import './App.css'
 import React, { useEffect } from 'react';
 import Home from './pages/home/home'
@@ -23,6 +22,9 @@ import CardPage from "./pages/card/cardPage";
 import { AppProps } from "./state/state";
 import  UserLogger  from "./context/UserLogger";
 import OrderPage from "./pages/OrderPage/OrderPage";
+import Tables from "./pages/tables/tables";
+import Reservations from "./pages/Reservations/Reservations";
+import Profile from "./pages/Profile/Profile";
 
 const App:React.FC<AppProps> = ({state, dispatch} ) => {
 
@@ -36,7 +38,8 @@ const App:React.FC<AppProps> = ({state, dispatch} ) => {
   return (
     <div>
       <UserLogger />
-      <AuthProvider>
+      
+      
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/menu" element={<Menu dispatch = {dispatch} state={state}/>} />
@@ -55,10 +58,14 @@ const App:React.FC<AppProps> = ({state, dispatch} ) => {
           <Route path="/adminmenu" element={<AdminMenu dispatch = {dispatch} state={state}/>} />
           <Route path="/adminmenukatalog/:sectionID" element={<AdminPanelMenu dispatch = {dispatch} state={state}/>} />
           <Route path="/operators" element={<Operators dispatch = {dispatch} state={state}/>} />
-          <Route path="/cart" element={<CardPage state={state} dispatch={dispatch}/>} />
+          <Route path="/cart" element={<CardPage />} />
           <Route path="/order" element={<OrderPage dispatch = {dispatch} state={state} />} />
+          <Route path="/tables" element={<Tables dispatch = {dispatch} state={state}/>} />
+          <Route path="/reservations" element={<Reservations dispatch = {dispatch} state={state}/>} />
+          <Route path="/profile" element={<Profile dispatch = {dispatch} state={state}/>} />
         </Routes>
-     </AuthProvider>
+      
+     
     </div>
   )
 }

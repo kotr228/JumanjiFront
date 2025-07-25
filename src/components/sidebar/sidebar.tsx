@@ -43,7 +43,7 @@ const Sidebar: FC<SidebarProps> = ({ onClose }) => {
                             </div>
                         )}
                         {userID != null && (
-                            <div className="styles_authBlock__23mDB"><a href={userRole === 'admin' ? '/adminpanel' : undefined}><button className="styles_button___Dvql styles_sizeLarge__YGfzR styles_appearanceStroke__LKd1h styles_withShadow__qhvq4 styles_fillContent__OccwK styles_fullWidth__x3ayC styles_personalAccountButton__K_crG">
+                            <div className="styles_authBlock__23mDB"><a href={userRole === 'admin' ? '/adminpanel' : '/profile'}><button className="styles_button___Dvql styles_sizeLarge__YGfzR styles_appearanceStroke__LKd1h styles_withShadow__qhvq4 styles_fillContent__OccwK styles_fullWidth__x3ayC styles_personalAccountButton__K_crG">
                                 <div className="styles_inner__td4kS">
                                     <div className="styles_iconHolder__lj_wy">
                                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

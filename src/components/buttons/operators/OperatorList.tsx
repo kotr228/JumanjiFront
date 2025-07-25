@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { fetchAllOperators, deleteOperator, Operator } from '../../../utils/apiOperators';
+import '../../../styles/reviews_&_comments.css';
 
 const OperatorList: React.FC = () => {
   const [operators, setOperators] = useState<Operator[]>([]);
@@ -55,12 +56,14 @@ const OperatorList: React.FC = () => {
               <div><strong>Ім'я:</strong> {op.name}</div>
               <div><strong>Телефон:</strong> {op.phone}</div>
               <div><strong>Telegram:</strong> @{op.telegram_nick}</div>
-              <button
+              <div className="sendFeedback">
+              <button className="btn btn-primary w-100"
                 onClick={() => handleDelete(op.id!)}
                 style={{ marginTop: '5px' }}
               >
                 Видалити
               </button>
+              </div>
             </li>
           ))}
         </ul>

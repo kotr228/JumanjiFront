@@ -6,11 +6,12 @@ import { fetchFavoritesdinks } from '../../../utils/favoritesdrinks';
 import AddDish from './MenuAdd';
 import CartButton from '../menu/CartButton';
 import { useAuth } from '../../../context/AuthContext';
-import { useCart } from '../../../context/CartContext';
+import store from '../../../state/state';
+
 
 interface MenuButtonsProps {
   userId: number;
-  sectionID: string | undefined; // Додали проп sectionID
+  sectionID: string | undefined;
 }
 
 const AdminMenuButtons: React.FC<AppProps & MenuButtonsProps> = ({ userId, sectionID, state }) => {
@@ -18,17 +19,19 @@ const AdminMenuButtons: React.FC<AppProps & MenuButtonsProps> = ({ userId, secti
   const menuCategories = state._Menu._MenuKategory;
   const menuFood = state._Menu._MenuFood;
 
-
   const [favoriteDishes, setFavoriteDishes] = useState<number[]>([]);
   const [favoriteDrinks, setFavoriteDrinks] = useState<number[]>([]);
-  const { cart, toggleCartItem } = useCart();
+  const cart = store.getState()._Cart.cart;
 
+  // Локальний стан для примусового ререндеру
+  const [, setForceUpdate] = useState(0);
 
   const { state: authState } = useAuth();
   const userRole = authState.user?.role;
 
   const onToggleCartItem = (dishId: number) => {
-    toggleCartItem(dishId);
+    store.dispatch({ type: 'TOGGLE_CART_ITEM', payload: dishId });
+    setForceUpdate(n => n + 1);
   };
 
   useEffect(() => {
@@ -58,7 +61,6 @@ const AdminMenuButtons: React.FC<AppProps & MenuButtonsProps> = ({ userId, secti
       .catch(console.error);
   }, [userId]);
 
-
   const toggleFavorite = async (dishId: number) => {
     try {
       if (favoriteDishes.includes(dishId)) {
@@ -73,7 +75,6 @@ const AdminMenuButtons: React.FC<AppProps & MenuButtonsProps> = ({ userId, secti
       alert('Сталася помилка при оновленні улюблених');
     }
   };
-
 
   return (
     <div>
@@ -101,8 +102,6 @@ const AdminMenuButtons: React.FC<AppProps & MenuButtonsProps> = ({ userId, secti
 
       {menuCategories.map((category) => {
         const relatedDishes = menuFood.filter((dish) => dish.idM === category.id);
-
-
 
         return (
           <div key={category.id} className="DefaultView_categoryWrapper__diWo2 category-observer-js" id={category.idName}>
@@ -165,8 +164,6 @@ const AdminMenuButtons: React.FC<AppProps & MenuButtonsProps> = ({ userId, secti
                           {cart.includes(dish.id) ? 'Видалити з кошика' : 'Додати в кошик'}
                         </button>
 
-
-
                       </div>
                     </div>
 
@@ -183,12 +180,9 @@ const AdminMenuButtons: React.FC<AppProps & MenuButtonsProps> = ({ userId, secti
         );
       })}
 
-      
-        <CartButton itemCount={cart.length} />
-      
+      <CartButton itemCount={cart.length} />
 
     </div>
-
   );
 };
 
