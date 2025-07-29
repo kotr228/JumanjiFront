@@ -7,12 +7,12 @@ import { useAuth } from '../../context/AuthContext';
 import { fetchProfile } from '../../utils/apiProfile';
 
 const Profile: React.FC<AppProps> = () => {
-  const { state: authState, dispatch } = useAuth();
+  const { state: authState } = useAuth();
 
   useEffect(() => {
     if (authState.user?.id) {
       fetchProfile(authState.user.id)
-        .then((updatedUser) => {
+        .then(() => {
           
         })
         .catch(console.error);

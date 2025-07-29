@@ -1,4 +1,4 @@
-const API_BASE = 'http://localhost:3000/api/profile';
+const API_BASE = 'http://server.jumanjialex.com.ua/api/profile';
 import { User } from '../context/AuthContext';
 
 export interface UserProfile {
@@ -26,7 +26,6 @@ export const updateProfile = async (profile: UserProfile): Promise<{ message: st
 
   return data;
 };
-
 
 
 export const fetchProfile = async (id: number): Promise<User> => {

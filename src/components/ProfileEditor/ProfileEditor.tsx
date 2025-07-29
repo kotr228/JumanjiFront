@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { updateProfile, UserProfile } from '../../utils/apiProfile';
 import { useAuth } from '../../context/AuthContext';
+import './../../styles/reviews_&_comments.css';
 
 const ProfileEditor: React.FC = () => {
   const { state, dispatch } = useAuth();
@@ -60,18 +61,30 @@ const ProfileEditor: React.FC = () => {
     }
   };
 
+  console.log('phone:',form?.phone,'tg:', form?.telegram_nick);
+
   if (!form) return <p className="text-center">Завантаження...</p>;
 
   return (
+    <div className="container py-4">
+      <div className="form-label card shadow-sm"
+      style={{
+                    border: '1px solid #ccc',
+                    padding: 16,
+                    borderRadius: 8,
+                    marginBottom: 24,
+                    backgroundColor: '#fafafa',
+                }}
+                >
     <form onSubmit={handleSubmit} className="p-4 max-w-md mx-auto space-y-4 bg-white shadow rounded">
       <h2 className="text-xl font-bold">Редагування профілю</h2>
 
-      <input
+      <input 
         name="name"
         value={form.name}
         onChange={handleChange}
         placeholder="Ім’я"
-        className="w-full border p-2 rounded"
+        className="w-full border p-2 rounded form-control"
         required
       />
       <input
@@ -80,7 +93,7 @@ const ProfileEditor: React.FC = () => {
         value={form.email}
         onChange={handleChange}
         placeholder="Email"
-        className="w-full border p-2 rounded"
+        className="w-full border p-2 rounded form-control"
         required
       />
       <input
@@ -88,27 +101,29 @@ const ProfileEditor: React.FC = () => {
         value={form.phone || ''}
         onChange={handleChange}
         placeholder="Телефон"
-        className="w-full border p-2 rounded"
+        className="w-full border p-2 rounded form-control"
       />
       <input
         name="telegram_nick"
         value={form.telegram_nick || ''}
         onChange={handleChange}
         placeholder="Нік в Telegram"
-        className="w-full border p-2 rounded"
+        className="w-full border p-2 rounded form-control"
       />
-
+<div className="sendFeedback">
       <button
         type="submit"
         disabled={status === 'loading'}
-        className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+        className="btn btn-primary w-100"
       >
         {status === 'loading' ? 'Збереження...' : 'Зберегти'}
       </button>
-
+</div>
       {status === 'success' && <p className="text-green-600">✅ Профіль оновлено успішно!</p>}
       {status === 'error' && <p className="text-red-600">❌ {error}</p>}
     </form>
+    </div>
+    </div>
   );
 };
 
