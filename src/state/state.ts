@@ -1,4 +1,4 @@
-import { fetchMenu, fetchMenuFood, fetchBarMenu, fetchBarMenuFood } from '../utils/api';
+import { fetchMenu, fetchMenuFood, fetchBarMenu, fetchBarMenuFood, fetchSearchResults } from '../utils/api';
 // Тип для категорії меню
 
 let rerenderMainTree = () => {
@@ -42,6 +42,10 @@ export interface MenuState {
     };
     _Cart: {
         cart: number[];
+    };
+    _Search: {
+        foods: MenuFoodItem[];
+        drinks: MenuFoodItem[];
     };
 }
 
@@ -95,6 +99,14 @@ type ClearCartAction = {
     type: 'CLEAR_CART';
 };
 
+type SetSearchResultsAction = {
+    type: 'SET_SEARCH_RESULTS';
+    payload: {
+        foods: MenuFoodItem[];
+        drinks: MenuFoodItem[];
+    };
+};
+
 type MenuAction =
     | AddMenuItemAction
     | GetMenuAction
@@ -104,7 +116,8 @@ type MenuAction =
     | AddToCartAction
     | RemoveFromCartAction
     | ToggleCartItemAction
-    | ClearCartAction;
+    | ClearCartAction
+    | SetSearchResultsAction;
 
 
 // Сам store
@@ -122,6 +135,10 @@ let store = {
             cart: typeof window !== 'undefined'
                 ? JSON.parse(localStorage.getItem('cart') || '[]')
                 : [],
+        },
+        _Search: {
+            foods: [] as MenuFoodItem[],
+            drinks: [] as MenuFoodItem[],
         }
     },
 
@@ -174,7 +191,7 @@ let store = {
                 break;
 
             case 'REMOVE_FROM_CART':
-                this._state._Cart.cart = this._state._Cart.cart.filter((id:number) => id !== action.payload);
+                this._state._Cart.cart = this._state._Cart.cart.filter((id: number) => id !== action.payload);
                 localStorage.setItem('cart', JSON.stringify(this._state._Cart.cart));
                 this._callSubscriber();
                 break;
@@ -183,7 +200,7 @@ let store = {
                 const cart = this._state._Cart.cart;
                 const exists = cart.includes(action.payload);
                 this._state._Cart.cart = exists
-                    ? cart.filter((id:number) => id !== action.payload)
+                    ? cart.filter((id: number) => id !== action.payload)
                     : [...cart, action.payload];
                 localStorage.setItem('cart', JSON.stringify(this._state._Cart.cart));
                 this._callSubscriber();
@@ -194,10 +211,28 @@ let store = {
                 localStorage.setItem('cart', JSON.stringify([]));
                 this._callSubscriber();
                 break;
+
+            case 'SET_SEARCH_RESULTS':
+                this._state._Search.foods = action.payload.foods;
+                this._state._Search.drinks = action.payload.drinks;
+                this._callSubscriber();
+                break;
+
         }
     }
 };
 
+export const searchMenu = (query: string) => {
+    fetchSearchResults(query).then((results) => {
+        store.dispatch({
+            type: 'SET_SEARCH_RESULTS',
+            payload: {
+                foods: results.foods,
+                drinks: results.drinks
+            }
+        });
+    });
+};
 
 
 export let LoginBTN = (email: React.RefObject<HTMLInputElement | null>, password: React.RefObject<HTMLInputElement | null>) => {
@@ -219,6 +254,8 @@ export let SignUpBTN = (name: React.RefObject<HTMLInputElement | null>, email: R
     alert('Ви успішно зареєструвалися!');
     rerenderMainTree();
 }
+
+
 
 
 export default store;
