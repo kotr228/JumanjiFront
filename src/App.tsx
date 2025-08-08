@@ -26,6 +26,7 @@ import Tables from "./pages/tables/tables";
 import Reservations from "./pages/Reservations/Reservations";
 import Profile from "./pages/Profile/Profile";
 import Search from "./pages/search/Search";
+import ReservationList from "./pages/ReservetionList/ReservetionList";
 
 const App:React.FC<AppProps> = ({state, dispatch} ) => {
 
@@ -65,6 +66,7 @@ const App:React.FC<AppProps> = ({state, dispatch} ) => {
           <Route path="/reservations" element={<Reservations dispatch = {dispatch} state={state}/>} />
           <Route path="/profile" element={<Profile dispatch = {dispatch} state={state}/>} />
           <Route path="/search" element={<Search dispatch = {dispatch} state={state} />} />
+          <Route path="/reservationslist" element={<ReservationList dispatch = {dispatch} state={state}/>} />
         </Routes>
       
      

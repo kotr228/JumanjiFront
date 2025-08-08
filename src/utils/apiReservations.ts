@@ -3,12 +3,17 @@ const API_BASE = 'http://server.jumanjialex.com.ua/api/reservations';
 export interface Reservation {
   id?: number;
   table_id: number;
+  table_number: number;
   name: string;
   phone: string;
-  date: string;  // yyyy-mm-dd
-  time: string;  // HH:mm
+  date: string;
+  time: string;
   guests: number;
+  notes?: string;
+  duration_minutes?: number;
 }
+
+
 
 export const fetchAllReservations = async (): Promise<Reservation[]> => {
   const res = await fetch(API_BASE);
